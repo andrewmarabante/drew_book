@@ -1,22 +1,28 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const messageSchema = new Schema({
-    chat_id : {
+const postSchema = new Schema({
+    owner : {
         type : String,
         required : true
     },
-    sender : {
+    title : {
         type : String,
         required : true
     },
     body : {
         type : String,
         required : true
+    },
+    comments : {
+        type : Array,
+    },
+    likes : {
+        type : Array,
     }
     
 }, {timestamps: true})
 
-const Message = new mongoose.model('Message', messageSchema);
+const Post = new mongoose.model('Post', postSchema);
 
-module.exports = Message;
+module.exports = Post;

@@ -1,9 +1,97 @@
+import { useEffect, useState } from "react"
 import Navbar from "./components/Navbar.jsx"
 
 export default function App(){
+    const [userPosts, setUserPosts] = useState(false)
+    const [friendPosts, setFriendPosts] = useState(true)
+    const [createPost, setCreatePost] = useState(false)
+
+    useEffect(()=>{
+
+        fetch('http://localhost:3000/',{
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            .then(result => result.json())
+            .then(result => {
+                console.log(result)
+            })
+            .catch(err => console.log(err))
+    }, [])
+
+    function togglePosts(type){
+        if(type === 'user'){
+            setFriendPosts(false)
+            setCreatePost(false)
+            setUserPosts(true)
+        }else if(type === 'friend'){
+            setCreatePost(false)
+            setUserPosts(false)
+            setFriendPosts(true)
+        }else if(type === 'create'){
+            setUserPosts(false)
+            setFriendPosts(false)
+            setCreatePost(true)
+        }}
+
+        function submitPost(e){
+            e.preventDefault();
+            const title = e.target.title.value
+            const formBody = e.target.body.value
+
+            const body = {
+                title : title,
+                body : formBody
+            }
+
+            fetch('http://localhost:3000/',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            })
+            .then(result => result.json())
+            .then(result => {
+                console.log(result)
+            })
+            .catch(err => console.log(err))
+
+
+        }
+
     return(
-        <div>
-            <Navbar></Navbar    >
+        <div className="h-screen">
+            <Navbar></Navbar>
+            <div className="pl-10 pr-10 h-full">
+                <div className="flex justify-around items-center p-10 font-serif pb-5 border-b-2">
+                    <div>
+                        <button onClick={()=>{togglePosts('user')}}>Your Posts</button>
+                        {userPosts && <div className="bg-green-500 h-1"></div>}
+                    </div>
+                    <div>
+                        <button onClick={()=>{togglePosts('friend')}}>Friend Posts</button>
+                        {friendPosts && <div className="bg-green-500 h-1"></div>}
+                    </div>
+                    <div>
+                        <button onClick={()=>{togglePosts('create')}}>Create Post</button>
+                        {createPost && <div className="bg-green-500 h-1"></div>}
+                    </div>
+                </div>
+                {createPost && <div className="h-full p-10">
+                    <form className="w-full h-full flex flex-col items-center" onSubmit={submitPost}>
+                        <div className="text-left w-3/4">Title:</div>
+                        <input type="text" className="border block w-3/4 m-1 pl-2 rounded-lg p-1" name="title"/>
+                        <div className="w-3/4 text-left">Body:</div>
+                        <textarea className="border h-2/6 w-3/4 m-1 mb-5 rounded-lg p-2" name="body"></textarea>
+                        <button type="submit" className="border w-2/6 p-2 hover:bg-green-50 rounded-lg">Create Post</button>
+                    </form>
+                    </div>}
+            </div>
         </div>
     )
 }
