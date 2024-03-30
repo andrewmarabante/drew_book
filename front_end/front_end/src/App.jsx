@@ -1,7 +1,9 @@
-
+import Navbar from "./components/Navbar.jsx"
 
 export default function App(){
     return(
-        <div className="">Working</div>
+        <div>
+            <Navbar></Navbar    >
+        </div>
     )
 }
