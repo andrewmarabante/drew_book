@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react"
 import Navbar from "./components/Navbar.jsx"
+import GetPosts from "./components/GetPosts.jsx"
 
 export default function App(){
+    const[userPostsArray, setUserPostsArray] = useState(null)
+    const[friendsPostsArray, setFriendspostsArray] = useState(null)
+    const[userList, setUserList] = useState(null)
+
     const [userPosts, setUserPosts] = useState(false)
     const [friendPosts, setFriendPosts] = useState(true)
     const [createPost, setCreatePost] = useState(false)
@@ -17,10 +22,12 @@ export default function App(){
             })
             .then(result => result.json())
             .then(result => {
-                console.log(result)
+                setUserPostsArray(result.userPosts);
+                setFriendspostsArray(result.friendsPosts);
+                setUserList(result.friendList)
             })
             .catch(err => console.log(err))
-    }, [])
+    }, [userPosts, friendPosts])
 
     function togglePosts(type){
         if(type === 'user'){
@@ -55,10 +62,7 @@ export default function App(){
                 body: JSON.stringify(body),
                 credentials: 'include'
             })
-            .then(result => result.json())
-            .then(result => {
-                console.log(result)
-            })
+            .then(togglePosts('user'))
             .catch(err => console.log(err))
 
 
@@ -91,6 +95,8 @@ export default function App(){
                         <button type="submit" className="border w-2/6 p-2 hover:bg-green-50 rounded-lg">Create Post</button>
                     </form>
                     </div>}
+                {userPosts && <GetPosts posts={userPostsArray} userList={userList}></GetPosts>}
+                {friendPosts && <GetPosts posts={friendsPostsArray} userList={userList}></GetPosts>}
             </div>
         </div>
     )
