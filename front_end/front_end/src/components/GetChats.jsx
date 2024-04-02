@@ -53,7 +53,7 @@ export default function GetChats({chatList, friendList, user, resetChat}){
     }
     return(
         <div>
-            {!showChat && <div className="flex justify-around bg-green-100 h-screen p-10">
+            {!showChat && <div className="flex justify-center bg-green-100 h-screen p-10">
                 <div className="flex flex-col bg-white rounded-lg m-5 h-1/2 shadow-lg overflow-scroll w-2/6 font-thin p-2 border">
                     <div className="border-b-2 text-2xl p-5 text-center">Group Chats: </div>
                     {groupArray && groupArray.map((chat)=>{

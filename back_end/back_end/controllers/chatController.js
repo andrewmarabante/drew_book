@@ -54,7 +54,6 @@ function newChat(req,res){
 
 function newMessage(req, res){
     chatId = req.body.chatId
-    console.log(req.body.id)
     newMessage = {
         message: req.body.message,
         sender : req.body.sender,

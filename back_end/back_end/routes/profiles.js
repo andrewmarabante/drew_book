@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
+const auth = require('../auth')
+const profileControllers = require('../controllers/profileControllers')
+const upload = require('../multer')
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.get('/', auth.authenticateToken, profileControllers.getUser)
+
+router.put('/', auth.authenticateToken, upload.single('image'), profileControllers.addInfo)
 
 module.exports = router;
