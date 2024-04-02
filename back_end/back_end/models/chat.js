@@ -11,7 +11,7 @@ const chatSchema = new Schema({
     },
     messages : {
         type: Array
-    }
+    },
 }, {timestamps: true})
 
 const Chat = new mongoose.model('Chat', chatSchema);

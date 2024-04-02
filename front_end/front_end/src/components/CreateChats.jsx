@@ -58,7 +58,7 @@ export default function CreateChats({friendList}){
     }
 
     return(
-        <div className="bg-green-50 flex flex-col justify-start items-center pt-20 h-screen">
+        <div className="bg-green-100 flex flex-col justify-start items-center pt-20 h-screen">
             <div className="text-5xl p-10">Create New Chat</div>
             <div className="bg-white rounded-lg shadow-lg w-3/4 h-fit flex flex-col justify-start items-start p-5">
                 <div className="flex w-full items-center pr-7">
@@ -83,9 +83,9 @@ export default function CreateChats({friendList}){
                         })}
                     </div>
                     <div className="border border-gray-300 rounded-lg h-5/6 w-full m-5 p-5 flex flex-col justify-start items-center gap-5">
-                        {recipientNames.length === 0 && <div className="text-center text-2xl">Add Friends!</div>}
+                        {recipientNames.length <2 && <div className="text-center text-2xl">Add Friends!</div>}
                         {recipientNames.length >1 && <input type="text" placeholder="Chat Name: " className="border rounded-lg p-2 text-center" value={chatName} onChange={handleChatNameChange}/>}
-                        {recipientNames.length === 1 || (recipientNames.length > 1 && chatName) && <button className="border rounded-lg p-2 pr-4 pl-4 hover:bg-blue-50" onClick={handleSubmit}>Create Chat</button>}
+                        {(recipientNames.length === 1 || (recipientNames.length > 1 && chatName)) && <button className="border rounded-lg p-2 pr-4 pl-4 hover:bg-blue-50" onClick={handleSubmit}>Create Chat</button>}
                     </div>
                 </div>
                 }

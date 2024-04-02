@@ -8,4 +8,8 @@ router.get('/', auth.authenticateToken, chatController.getChats)
 
 router.post('/', auth.authenticateToken, chatController.newChat)
 
+router.put('/', auth.authenticateToken, chatController.newMessage)
+
+router.delete('/', auth.authenticateToken, chatController.deleteMessage)
+
 module.exports = router;

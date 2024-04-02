@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import CreateChats from "./components/CreateChats";
+import GetChats from "./components/GetChats";
 
 export default function Chats(){
     const [showChats, setShowChats] = useState(true);
-    const [chatList, setChatList] = useState([]);
-    const [friendList, setFriendList] = useState([]);
+    const [chatList, setChatList] = useState(null);
+    const [friendList, setFriendList] = useState(null);
+    const [user, setUser] = useState(null)
     
     useEffect(()=>{
         fetch('http://localhost:3000/chats',{
@@ -17,7 +19,10 @@ export default function Chats(){
         })
         .then(result => result.json())
         .then(result => {
-           setChatList(result.friendList)
+            const userInfo = result.friendList[result.friendList.length-1]
+            result.friendList.pop()
+           setUser(userInfo)
+           setChatList(result.chatList)
            setFriendList(result.friendList)
         })
         .catch(err => console.log(err))
@@ -47,6 +52,7 @@ export default function Chats(){
                         </div>
                 </div>
                 {!showChats && <CreateChats friendList={friendList}></CreateChats>}
+                {(showChats && chatList) && <GetChats chatList={chatList} friendList={friendList} user={user}></GetChats>}
             </div>
         </div>
     )
