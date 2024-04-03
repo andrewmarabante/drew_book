@@ -5,7 +5,9 @@ export default function Profiles(){
     return(
         <div>
             <Navbar></Navbar>
-            <LoadProfile></LoadProfile>
+            <div className="pl-10 pr-10 h-full">
+                <LoadProfile></LoadProfile>
+            </div>
         </div>
     )
 }
