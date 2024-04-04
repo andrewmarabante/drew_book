@@ -40,22 +40,55 @@ export default function LoadProfile(){
             return
         }
 
+        const data = getRatios();   
+        
+        console.log(data)
+
 
         const formData = new FormData();
 
         formData.append('image', profilePic)
+        formData.append('left', data.leftRatio)
+        formData.append('top', data.topRatio)
+        formData.append('height', data.cropHeight)
+        formData.append('width', data.cropWidth)
         
 
         fetch('http://localhost:3000/profiles', {
-            method: 'PUT',
+            method: 'POST',
             body: formData,
             credentials: 'include'
         })
             .then(result => result.json())
-            .then(result => {
-                console.log(result)
-            })
+            .then(()=>{window.location.href = '/profiles'})
             .catch(err => console.log(err))
+    }
+
+    function getRatios(){
+        const picContainer = document.getElementById('picContainer');
+        const image = document.getElementById('image');
+        const circle = document.getElementById('circle');
+
+        const picContainerRect = picContainer.getBoundingClientRect();
+        const imageRect = image.getBoundingClientRect();
+        const circleRect = circle.getBoundingClientRect();
+
+        //need, crop width (circle width / image width)
+
+        const cropWidth = circleRect.width / imageRect.width
+        //crop height
+        const cropHeight = circleRect.height / imageRect.height
+        //top image percentage (circle top / image height)
+        //Remember though, the circle top give top to screen, we need to subtract image top
+        const topRatio = (circleRect.top - imageRect.top) / imageRect.height
+        //left image percentage
+
+        const leftRatio = (circleRect.left - imageRect.left) / imageRect.width
+
+        return(
+            {topRatio,leftRatio, cropHeight, cropWidth}
+        )
+
     }
 
     function handleTopChange(e){
@@ -66,9 +99,6 @@ export default function LoadProfile(){
         const imageRect = image.getBoundingClientRect();
         const picContainerRect = picContainer.getBoundingClientRect();
 
-        console.log(imageRect)
-        console.log('break')
-        console.log(circle.getBoundingClientRect())
 
         const TopBotGap = imageRect.top - picContainerRect.top
 
@@ -125,19 +155,21 @@ export default function LoadProfile(){
     }
 
     return(
-        <div className="flex justify-center items-center h-screen ">
+        <div className="flex justify-center items-center h-fit p-10">
             {(user && !editPhoto) &&
             <div className="flex flex-col items-center justify-center">
-                <div className="p-5 pt-10 border-b-2 w-full flex flex-col items-center justify-center">
+                <div className="text-2xl">{user && user.username}</div>
+                <div className="p-5 pt-10 border-b-2 w-full flex flex-col items-center justify-center h-full">
                     {user.profile_pic && <img src={user.profile_pic} alt="profile pic" className="h-60 w-60 rounded-full shadow-lg border border-black" />}
                     <div className="text-center m-5 text-xs select-none" onClick={()=>setEditPhoto(true)}>Edit photo</div>
                 </div>
-                <div>username</div>
-                <div>age</div>
-                <div>gender</div>
-                <div>occupation</div>
-                <div>hobbies</div>
-                <div>school</div>
+                <div className="flex flex-col justify-around w-full min-h-80">
+                    <div>Age: </div>
+                    <div>Gender: </div>
+                    <div>Occupation: </div>
+                    <div>Hobbies</div>
+                    <div>School: </div>
+                </div>
                 <div>bio</div>
                 <div>friends</div>
                 <div>suggested</div>
