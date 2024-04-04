@@ -70,7 +70,7 @@ export default function App(){
 
     return(
         <div className="h-screen">
-            <Navbar></Navbar>
+            <Navbar title='Posts'></Navbar>
             <div className="pl-10 pr-10 h-full">
                 <div className="flex justify-around items-center p-10 font-serif pb-5 border-b-2">
                     <div>

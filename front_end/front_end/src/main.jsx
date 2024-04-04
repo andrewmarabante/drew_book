@@ -7,6 +7,7 @@ import Profiles from './Profiles.jsx'
 import Chats from './Chats.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AddFriends from './AddFriends.jsx'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path: "chats",
     element: <Chats/>
+  },
+  {
+    path: "addFriends",
+    element: <AddFriends/>
   }
 ]);
 

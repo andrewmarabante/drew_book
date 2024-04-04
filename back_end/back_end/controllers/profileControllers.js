@@ -45,7 +45,22 @@ function addInfo(req,res){
     })
 }
 
+function getSuggested(req,res){
+    userId = req.userInfo.userId;
+    User.find({_id : userId})
+    .then(result => {
+        friends = result[0].friends;
+
+        User.find({_id : {$nin : friends}})
+        .then(result => {
+            res.status(200).json(result);
+        })
+    })
+    .catch(err => res.status(500).json(err));
+}
+
 module.exports = {
     getUser,
-    addInfo
+    addInfo,
+    getSuggested
 }

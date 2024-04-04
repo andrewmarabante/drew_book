@@ -39,7 +39,7 @@ export default function Chats(){
 
     return(
         <div>
-            <Navbar></Navbar>
+            <Navbar title='Chats'></Navbar>
             <div className="pl-10 pr-10 h-full">
                 <div className="flex justify-around items-center p-10 font-serif pb-5 border-b-2">
                         <div>

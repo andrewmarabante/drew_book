@@ -155,35 +155,62 @@ export default function LoadProfile(){
     }
 
     return(
-        <div className="flex justify-center items-center h-fit p-10">
+        <div className="flex justify-center items-center min-h-screen h-auto p-10">
             {(user && !editPhoto) &&
-            <div className="flex flex-col items-center justify-center">
+            <div className="flex flex-col items-center justify-center w-full">
                 <div className="text-2xl">{user && user.username}</div>
                 <div className="p-5 pt-10 border-b-2 w-full flex flex-col items-center justify-center h-full">
                     {user.profile_pic && <img src={user.profile_pic} alt="profile pic" className="h-60 w-60 rounded-full shadow-lg border border-black" />}
                     <div className="text-center m-5 text-xs select-none" onClick={()=>setEditPhoto(true)}>Edit photo</div>
                 </div>
-                <div className="flex flex-col justify-around w-full min-h-80">
-                    <div>Age: </div>
-                    <div>Gender: </div>
-                    <div>Occupation: </div>
-                    <div>Hobbies</div>
-                    <div>School: </div>
+                <div className="flex flex-col justify-around w-full h-96 border-b-2">
+                    <div className="w-fit text-center text-2xl border-b-2">Personal Information: </div>
+                    
+                    <div className="flex justify-center gap-5">
+                        <div className="w-40 text-xl font-mono">Age: </div>
+                        <div className="w-80 text-center text-xl font-thin">{user.age ? user.age : 'empty'}</div>
+                    </div>
+
+                    <div className="flex justify-center gap-5">
+                        <div className="w-40 text-xl font-mono">Gender: </div>
+                        <div className="w-80 text-center text-xl font-thin">{user.gender ? user.age : 'empty'}</div>
+                    </div>
+
+                    <div className="flex justify-center gap-5">
+                        <div className="w-40 text-xl font-mono">Occupation: </div>
+                        <div className="w-80 text-center text-xl font-thin">{user.occupation ? user.occupation : 'empty'}</div>
+                    </div>
+
+                    <div className="flex justify-center gap-5">
+                        <div className="w-40 text-xl font-mono">School: </div>
+                        <div className="w-80 text-center text-xl font-thin">{user.school ? user.school : 'empty'}</div>
+                    </div>
+
+                    <div className="flex justify-center gap-5">
+                        <div className="w-40 text-xl font-mono">Hobbies: </div>
+                        <div className="w-80 text-center text-xl font-thin">{user.hobbies ? user.hobbies : 'empty'}</div>
+                    </div>
+
                 </div>
-                <div>bio</div>
-                <div>friends</div>
+                <div className="h-fit max-h-60 w-full border-b-2 overflow-scroll pt-3 pb-5">
+                    <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">{user.username}'s Bio:</div></div>
+                    <div className="text-lg font-thin pl-10 p-2">{user.bio ? user.bio : <div className="text-center mr-10">empty</div>}</div>
+                </div>
+                <div className="w-full pt-3">
+                    <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Friends:</div></div>
+                </div>
                 <div>suggested</div>
             </div>
             }
             {editPhoto &&
-            <div className="p-2 h-5/6 w-3/4 flex flex-col justify-around items-center border rounded-2xl shadow-lg bg-green-100 relative">
+            <div className="pt-20 h-fit w-3/4 flex flex-col justify-around items-center border rounded-2xl shadow-lg bg-green-100 relative">
                 <div className="absolute top-5 text-2xl">Profile Picture: </div>
                 <div className="flex flex-col justify-center items-center w-full h-full">
                     <div className="flex justify-end items-center h-3/4 w-3/4">
-                        <div id="picContainer" className="relative border border-black h-5/6 w-5/6 flex justify-center items-center shadow-lg bg-white overflow-x-auto">
+                        {profilePic && <div id="picContainer" className="relative border border-black h-5/6 w-5/6 flex justify-center items-center shadow-lg bg-white overflow-x-auto">
                             <div id="circle" className={`absolute top-1/2 left-1/2 transform: -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-white bg-opacity-50 border border-black z-30`}></div>
-                            {profilePic && <img id="image" src={URL.createObjectURL(profilePic)} className="h-5/6 border border-black"></img>}
-                        </div>
+                            <img id="image" src={URL.createObjectURL(profilePic)} className="h-5/6 border border-black"></img>
+                        </div>}
                         <div className="flex justify-center items-center">
                             {profilePic &&<Slider
                                       sx={{
@@ -220,7 +247,7 @@ export default function LoadProfile(){
                         step={1}
                         value={diameter}
                         min={50}
-                        max={150}
+                        max={250}
                         sx={{ width: '20em' }}
                         onChange={handleDiameterChange}
                         />}

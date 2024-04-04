@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar";
 export default function Profiles(){
     return(
         <div>
-            <Navbar></Navbar>
-            <div className="pl-10 pr-10 h-full">
+            <Navbar title='Profile'></Navbar>
+            <div className="pl-10 pr-10 h-screen">
                 <LoadProfile></LoadProfile>
             </div>
         </div>
