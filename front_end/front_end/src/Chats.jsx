@@ -40,8 +40,8 @@ export default function Chats(){
     return(
         <div>
             <Navbar title='Chats'></Navbar>
-            <div className="pl-10 pr-10 pt-5 h-full bg-cover" style={{backgroundImage: "url('/public/green_background.avif')"}}>
-                <div className="flex justify-around items-center p-10 font-serif pb-5 border-b-2 bg-white rounded-lg mb-5">
+            <div className="pl-10 pr-10 pt-20 h-full bg-cover" style={{backgroundImage: "url('/public/green_background.avif')"}}>
+                <div className="flex justify-around items-center p-5 font-serif border-b-2 bg-white rounded-lg mb-5">
                         <div>
                             <button onClick={toggleChats}>Your Chats</button>
                             {showChats && <div className="bg-green-500 h-1"></div>}

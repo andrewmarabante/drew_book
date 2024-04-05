@@ -57,6 +57,8 @@ function getSuggested(req,res){
     User.find({_id : userId})
     .then(result => {
         friends = result[0].friends;
+        //to stop the user from being in friends list
+        friends.push(userId);
 
         User.find({_id : {$nin : friends}})
         .then(result => {
@@ -101,11 +103,32 @@ function removeFriend(req, res){
     .catch(err => res.status(500).json(err))
 }
 
+function getFriends(req, res){
+    if(req.params.id === ':null'){
+        userId = req.userInfo.userId;
+    }else{
+        userId = req.params.id.slice(1)
+        console.log(userId)
+    }
+
+    User.find({_id : userId})
+    .then(result => {
+        
+        friends = result[0].friends
+
+        User.find({_id : {$in : friends}})
+        .then(result => {
+            res.status(200).json(result)
+        })
+    })
+    .catch(err => json.status(500).json(err))
+}
 
 module.exports = {
     getUser,
     addInfo,
     getSuggested,
     addFriend,
-    removeFriend
+    removeFriend,
+    getFriends
 }

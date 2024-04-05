@@ -58,7 +58,7 @@ import * as React from 'react';
     );
   
     return (
-      <div className='bg-green-100 p-10 flex shadow-lg select-none relative'>
+      <div className='bg-green-100 p-10 flex shadow-lg select-none relative bg-gradient-to-b from-green-100 to-blue-100'>
         <img src={bars} alt='menu' onClick={toggleDrawer(true)} className='h-24 select-none absolute top-5 left-8'></img>
         <div className='flex justify-center items-center w-full'>
             <div className='text-6xl font-serif'>{title}</div>

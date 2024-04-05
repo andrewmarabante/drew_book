@@ -11,6 +11,8 @@ router.get('/suggested', auth.authenticateToken, profileControllers.getSuggested
 
 router.get('/:id', auth.authenticateToken, profileControllers.getUser)
 
+router.get('/:id/friends', auth.authenticateToken, profileControllers.getFriends)
+
 router.post('/', auth.authenticateToken, upload.single('image'), profileControllers.addInfo)
 
 router.put('/add', auth.authenticateToken, profileControllers.addFriend)

@@ -6,7 +6,7 @@ import up from '../assets/up.svg'
 export default function GetPosts({posts, userList}){
 
     return(
-        <div className="bg-green-50 flex flex-col justify-center items-center pt-20 min-h-screen">
+        <div className="flex flex-col justify-center items-center pt-20 min-h-screen rounded-xl bg-gradient-to-r from-blue-100 to-green-100">
             {posts && posts.map((post) => {
                 return(
                     <div key={v4()} className="mb-28 bg-white rounded-2xl shadow-lg w-3/4 h-96 p-10 relative flex flex-col justify-around">

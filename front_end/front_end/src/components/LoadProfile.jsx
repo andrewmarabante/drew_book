@@ -5,9 +5,10 @@ import edit from '../assets/edit.svg';
 import remove from '../assets/removeFriend.svg';
 import add from '../assets/addFriend.svg';
 import x from '../assets/x.svg'
+import GetFriends from "./GetFriends";
 
 
-export default function LoadProfile({id}){
+export default function LoadProfile({id, friends}){
     const [user, setUser] = useState(null)
 
     //You are so lazy for this bro... but using this currentUser saves so much
@@ -22,7 +23,6 @@ export default function LoadProfile({id}){
     const [left, setLeft] = useState('1/2')
     const [top, setTop] = useState('1/2')
     const [diameter, setDiameter] = useState(100)
-    const [breakValue, setBreakValue] = useState(null   )
 
     useEffect(()=>{
         
@@ -281,17 +281,19 @@ export default function LoadProfile({id}){
                 <div className="w-full pt-3">
                     <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Friends:</div></div>
                 </div>
-                <div>suggested</div>
+                <div className="w-5/6 h-96 mt-5">
+                    <GetFriends list={friends}></GetFriends>
+                </div>
             </div>
             }
             {editPhoto &&
-            <div className="pt-20 h-fit w-3/4 flex flex-col justify-around items-center border rounded-2xl shadow-lg bg-green-100 relative">
+            <div className="pt-20 h-fit w-3/4 flex flex-col justify-around items-center border rounded-2xl shadow-lg bg-green-100 relative bg-gradient-to-r from-green-300 to-green-50">
                 <div className="absolute top-5 text-2xl">Profile Picture: </div>
                 <div className="flex flex-col justify-center items-center w-full h-full">
                     <div className="flex justify-end items-center h-3/4 w-3/4">
                         {profilePic && <div id="picContainer" className="relative border border-black h-5/6 w-5/6 flex justify-center items-center shadow-lg bg-white overflow-x-auto">
                             <div id="circle" className={`absolute top-1/2 left-1/2 transform: -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-white bg-opacity-50 border border-black z-30`}></div>
-                            <img id="image" src={URL.createObjectURL(profilePic)} className="h-5/6 border border-black"></img>
+                            <img id="image" src={URL.createObjectURL(profilePic)} className="max-h-96 border border-black"></img>
                         </div>}
                         <div className="flex justify-center items-center">
                             {profilePic &&<Slider
@@ -329,7 +331,7 @@ export default function LoadProfile({id}){
                         step={1}
                         value={diameter}
                         min={50}
-                        max={250}
+                        max={200}
                         sx={{ width: '20em' }}
                         onChange={handleDiameterChange}
                         />}
