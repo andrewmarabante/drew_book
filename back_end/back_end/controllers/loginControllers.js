@@ -14,7 +14,7 @@ const newUser = async (req, res) => {
             const userDetails = {
                 'username' : username,
                 'password' : hashedPass,
-                'imageURL' : '',
+                'profile_pic' : 'http://res.cloudinary.com/djg9ttgrn/image/upload/c_crop,h_0.9306654257794323,w_0.9306654257794323,x_0.03466728711028385,y_0.05444392740809679/v1712280077/s8vwpudk7bhwkp0axgng.jpg',
                 'online' : false,
                 'friends' : []
             }

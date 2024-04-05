@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react"
 import {v4} from 'uuid'
 import Slider from '@mui/material/Slider';
+import edit from '../assets/edit.svg';
+import remove from '../assets/removeFriend.svg';
+import add from '../assets/addFriend.svg';
+import x from '../assets/x.svg'
 
 
-export default function LoadProfile(){
+export default function LoadProfile({id}){
     const [user, setUser] = useState(null)
+
+    //You are so lazy for this bro... but using this currentUser saves so much
+    //time having to go back and change all user fetches and routes..
+    //user is now either the currentUser OR if an id is passed in, it becomes
+    //that id's information, currentUser is used to determine if they are in our
+    //friend list or not... DO NOT DO THIS IF YOU WANT TO SCALE THE WEBSITE IM JUST SO DAMN LAZY
+    const [currentUser, setCurrentUser] = useState(null)
     const [profilePic, setProfilePic] = useState(null)
     const [reset, setReset] = useState(null)
     const [editPhoto, setEditPhoto] = useState(false)
@@ -15,20 +26,38 @@ export default function LoadProfile(){
 
     useEffect(()=>{
         
-        fetch('http://localhost:3000/profiles', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        })
-            .then(result => result.json())
-            .then(result => {
-                setUser(result)
-            })
-            .catch(err => console.log(err))
 
-    }, [])
+        if(id){
+            fetch(`http://localhost:3000/profiles/:${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+                .then(result => result.json())
+                .then(result => {
+                    setUser(result)
+                })
+                .catch(err => console.log(err))
+
+        }
+
+        fetch('http://localhost:3000/profiles', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include'
+                })
+                .then(result => result.json())
+                .then(result => {
+                    setCurrentUser(result)
+                    if(!id){setUser(result)}
+                })
+                .catch(err => console.log(err))
+
+    }, [reset])
 
     function handlePicChange(e){
         setProfilePic(e.target.files[0])
@@ -41,9 +70,6 @@ export default function LoadProfile(){
         }
 
         const data = getRatios();   
-        
-        console.log(data)
-
 
         const formData = new FormData();
 
@@ -154,14 +180,70 @@ export default function LoadProfile(){
         setDiameter(e.target.value)
     }
 
+    function addFriend(){
+
+        const body = {
+            id : id
+        }
+        
+        fetch(`http://localhost:3000/profiles/add`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            })
+                .then(result => result.json())
+                .then(result => {
+                    setReset(v4())
+                })
+                .catch(err => console.log(err))
+    }
+
+    function removeFriend(){
+
+        const body = {
+            id : id
+        }
+        
+        fetch(`http://localhost:3000/profiles/remove`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body),
+                credentials: 'include'
+            })
+                .then(result => result.json())
+                .then(result => {
+                    setReset(v4())
+                })
+                .catch(err => console.log(err))
+
+    }
+
     return(
-        <div className="flex justify-center items-center min-h-screen h-auto p-10">
-            {(user && !editPhoto) &&
+        <div className="flex justify-center items-center min-h-screen h-auto p-10 bg-white rounded-2xl relative">
+            {id && <img src={x} alt="back" className="h-16 absolute top-1 right-1" onClick={()=>{window.location.href='/addFriends'}}></img>}
+            {(user && !editPhoto && currentUser) &&
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="text-2xl">{user && user.username}</div>
                 <div className="p-5 pt-10 border-b-2 w-full flex flex-col items-center justify-center h-full">
                     {user.profile_pic && <img src={user.profile_pic} alt="profile pic" className="h-60 w-60 rounded-full shadow-lg border border-black" />}
-                    <div className="text-center m-5 text-xs select-none" onClick={()=>setEditPhoto(true)}>Edit photo</div>
+                    
+                    {!id && <div className="text-center m-5 text-xs select-none flex justify-end items-center w-60">
+                        <div>Edit</div><img src={edit} className="h-6" onClick={()=>setEditPhoto(true)}></img>
+                    </div>}
+
+                    {(id && currentUser.friends.includes(user._id)) && <div className="text-center m-5 text-xs select-none flex justify-end items-center w-60">
+                        <div className="m-1">Remove Friend</div><img src={remove} className="h-7 p-1 border rounded-full border-black bg-green-100 hover:bg-blue-100" onClick={removeFriend}></img>
+                    </div>}
+
+                    {(id && !currentUser.friends.includes(user._id)) && <div className="text-center m-5 text-xs select-none flex justify-end items-center w-60">
+                        <div className="mr-1">Add Friend</div><img src={add} className="h-7 p-1 border rounded-full border-black bg-green-100 hover:bg-blue-100" onClick={addFriend}></img>
+                    </div>}
+
                 </div>
                 <div className="flex flex-col justify-around w-full h-96 border-b-2">
                     <div className="w-fit text-center text-2xl border-b-2">Personal Information: </div>
@@ -193,7 +275,7 @@ export default function LoadProfile(){
 
                 </div>
                 <div className="h-fit max-h-60 w-full border-b-2 overflow-scroll pt-3 pb-5">
-                    <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">{user.username}'s Bio:</div></div>
+                    <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Bio:</div></div>
                     <div className="text-lg font-thin pl-10 p-2">{user.bio ? user.bio : <div className="text-center mr-10">empty</div>}</div>
                 </div>
                 <div className="w-full pt-3">

@@ -34,7 +34,7 @@ export default function(){
                             <div key={v4()} className="flex justify-start border rounded-2xl w-1/2 relative shadow-xl m-7">
                                 <img src={suggested.profile_pic} alt="Profile Pic" className="h-20 w-20 rounded-full border absolute -left-6 -top-2 border-black"/>
                                 <div className="w-fit text-center text-4xl font-thin p-3 pl-20">{suggested.username}</div>
-                                <img src={addFriend} alt="Add" className="h-7 p-1 border rounded-full border-black absolute -right-1 -top-2 bg-green-100 hover:bg-blue-100"/>
+                                <img src={addFriend} alt="Add" className="h-7 p-1 border rounded-full border-black absolute -right-1 -top-2 bg-green-100 hover:bg-blue-100" onClick={()=>window.location.href = `/profiles?id=${suggested._id}`}/>
                             </div>
                         )
                     })}

@@ -9,6 +9,11 @@ router.get('/', auth.authenticateToken, profileControllers.getUser)
 
 router.get('/suggested', auth.authenticateToken, profileControllers.getSuggested)
 
+router.get('/:id', auth.authenticateToken, profileControllers.getUser)
+
 router.post('/', auth.authenticateToken, upload.single('image'), profileControllers.addInfo)
 
+router.put('/add', auth.authenticateToken, profileControllers.addFriend)
+
+router.put('/remove', auth.authenticateToken, profileControllers.removeFriend)
 module.exports = router;

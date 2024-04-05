@@ -69,10 +69,10 @@ export default function App(){
         }
 
     return(
-        <div className="h-screen">
+        <div className="min-h-screen bg-cover" style={{backgroundImage: "url('/public/green_background.avif')"}}>
             <Navbar title='Posts'></Navbar>
-            <div className="pl-10 pr-10 h-full">
-                <div className="flex justify-around items-center p-10 font-serif pb-5 border-b-2">
+            <div className="pl-10 pr-10 pt-5 h-full">
+                <div className="flex justify-around items-center p-10 font-serif pb-5 border bg-white rounded-xl mb-5">
                     <div>
                         <button onClick={()=>{togglePosts('user')}}>Your Posts</button>
                         {userPosts && <div className="bg-green-500 h-1"></div>}
@@ -86,7 +86,7 @@ export default function App(){
                         {createPost && <div className="bg-green-500 h-1"></div>}
                     </div>
                 </div>
-                {createPost && <div className="h-full p-10">
+                {createPost && <div className="h-full p-10 bg-green-50 min-h-screen">
                     <form className="w-full h-full flex flex-col items-center" onSubmit={submitPost}>
                         <div className="text-left w-3/4">Title:</div>
                         <input type="text" className="border block w-3/4 m-1 pl-2 rounded-lg p-1" name="title"/>

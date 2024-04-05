@@ -2,8 +2,15 @@ const User = require('../models/user')
 const cloudinary = require('../cloudinary');
 
 function getUser(req, res){
-    userId = req.userInfo.userId;
-    
+
+    specifiedUser = req.params.id;
+
+    if(specifiedUser){
+        specifiedUser = specifiedUser.slice(1);
+        userId = specifiedUser
+    }else{
+        userId = req.userInfo.userId;
+    }
     User.find({_id : userId})
     .then(result => {
         res.status(200).json(result[0])
@@ -59,8 +66,46 @@ function getSuggested(req,res){
     .catch(err => res.status(500).json(err));
 }
 
+function addFriend(req, res){
+
+    newFriendId = req.body.id;
+    userId = req.userInfo.userId;
+
+    User.find({_id : userId})
+    .then(result => {
+        let user = result[0]
+        friends = user.friends
+        friends.push(newFriendId);
+
+        User.updateOne({_id : userId} , {friends : friends})
+        .then(res.status(200).json('added'))
+    })
+    .catch(err => res.status(500).json(err)) 
+}
+
+function removeFriend(req, res){
+
+    removeFriendId = req.body.id;
+    userId = req.userInfo.userId;
+
+    User.find({_id : userId})
+    .then(result => {
+        let user = result[0]
+        friends = user.friends
+        index = friends.indexOf(removeFriendId)
+        friends.splice(index,1)
+
+        User.updateOne({_id : userId} , {friends : friends})
+        .then(res.status(200).json('removed'))
+    })
+    .catch(err => res.status(500).json(err))
+}
+
+
 module.exports = {
     getUser,
     addInfo,
-    getSuggested
+    getSuggested,
+    addFriend,
+    removeFriend
 }
