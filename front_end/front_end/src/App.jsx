@@ -46,22 +46,29 @@ export default function App(){
             setCreatePost(true)
         }}
 
-        function submitPost(e){
+        function submitPost(e, images){
+
             e.preventDefault();
             const title = e.target.title.value
-            const formBody = e.target.body.value
+            const description = e.target.body.value;
 
-            const body = {
-                title : title,
-                body : formBody
+
+            const formData = new FormData();
+
+            formData.append('title', title)
+            formData.append('description', description)
+
+            for(let i=0; i<images.length; i++)
+            {
+                formData.append('image', images[i])
             }
+
+
+
 
             fetch('http://localhost:3000/',{
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body),
+                body: formData,
                 credentials: 'include'
             })
             .then(togglePosts('user'))

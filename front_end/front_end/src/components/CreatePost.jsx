@@ -31,7 +31,7 @@ export default function CreatePost({submitPost}){
 
     return(
         <div className="h-full p-10 bg-green-50 min-h-screen rounded-xl bg-gradient-to-r from-green-100 to-blue-100">
-                    <form className="w-full h-full flex flex-col items-center" onSubmit={submitPost}>
+                    <form className="w-full h-full flex flex-col items-center" onSubmit={(e)=>submitPost(e, images)}>
                         <div className="text-left w-3/4">Title:</div>
                         <input type="text" className="border block w-3/4 m-1 pl-2 rounded-lg p-1" name="title"/>
                         <div className="w-3/4 text-left">Description:</div>
