@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import Navbar from "./components/Navbar.jsx"
 import GetPosts from "./components/GetPosts.jsx"
+import CreatePost from "./components/CreatePost.jsx"
+import PostHeader from "./components/PostHeader.jsx"
 
 export default function App(){
     const[userPostsArray, setUserPostsArray] = useState(null)
@@ -72,29 +74,8 @@ export default function App(){
         <div className="min-h-screen bg-cover" style={{backgroundImage: "url('/public/green_background.avif')"}}>
             <Navbar title='Posts'></Navbar>
             <div className="pl-10 pr-10 pt-5 h-full">
-                <div className="flex justify-around items-center p-5 font-serif border bg-white rounded-xl mb-5">
-                    <div>
-                        <button onClick={()=>{togglePosts('user')}}>Your Posts</button>
-                        {userPosts && <div className="bg-green-500 h-1"></div>}
-                    </div>
-                    <div>
-                        <button onClick={()=>{togglePosts('friend')}}>Friend Posts</button>
-                        {friendPosts && <div className="bg-green-500 h-1"></div>}
-                    </div>
-                    <div>
-                        <button onClick={()=>{togglePosts('create')}}>Create Post</button>
-                        {createPost && <div className="bg-green-500 h-1"></div>}
-                    </div>
-                </div>
-                {createPost && <div className="h-full p-10 bg-green-50 min-h-screen rounded-xl bg-gradient-to-r from-green-100 to-blue-100">
-                    <form className="w-full h-full flex flex-col items-center" onSubmit={submitPost}>
-                        <div className="text-left w-3/4">Title:</div>
-                        <input type="text" className="border block w-3/4 m-1 pl-2 rounded-lg p-1" name="title"/>
-                        <div className="w-3/4 text-left">Body:</div>
-                        <textarea className="border h-2/6 w-3/4 m-1 mb-5 rounded-lg p-2" name="body"></textarea>
-                        <button type="submit" className="border w-2/6 p-2 hover:bg-green-50 rounded-lg">Create Post</button>
-                    </form>
-                    </div>}
+                <PostHeader togglePosts={togglePosts} userPosts={userPosts} friendPosts={friendPosts} createPost={createPost}></PostHeader>
+                {createPost && <CreatePost submitPost={submitPost}></CreatePost>}
                 {userPosts && <GetPosts posts={userPostsArray} userList={userList}></GetPosts>}
                 {friendPosts && <GetPosts posts={friendsPostsArray} userList={userList}></GetPosts>}
             </div>

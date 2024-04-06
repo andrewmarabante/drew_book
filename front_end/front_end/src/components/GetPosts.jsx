@@ -12,7 +12,7 @@ export default function GetPosts({posts, userList}){
                     <div key={v4()} className="mb-28 bg-white rounded-2xl shadow-lg w-3/4 h-96 p-10 relative flex flex-col justify-around">
                         {userList.map((user)=>{
                             return(
-                                <div key={v4()} className="absolute top-0">{(user._id === post.owner) && user.username}</div>
+                                <div key={v4()} className="absolute top-0">{(user._id === post.owner) && <div className="flex justify-start items-center relative -top-5 bg-white rounded-xl"><img src={user.profile_pic} alt="Profile Pic" className="h-14 w-14 rounded-full absolute -left-5 -top-1 border"></img><div className="text-xl border rounded-lg p-2 pl-12 font-extralight shadow-lg pr-5">{user.username}</div></div>}</div>
                             )
                         })}
                         <div className="text-2xl pl-2">{post.title}</div>

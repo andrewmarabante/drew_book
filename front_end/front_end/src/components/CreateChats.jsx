@@ -58,7 +58,7 @@ export default function CreateChats({friendList}){
     }
 
     return(
-        <div className="bg-green-100 flex flex-col justify-start items-center pt-20 h-screen rounded-xl">
+        <div className="bg-gradient-to-r from-blue-100 to-green-100 flex flex-col justify-start items-center pt-20 h-screen rounded-xl">
             <div className="text-5xl p-10">Create New Chat</div>
             <div className="bg-white rounded-lg shadow-lg w-3/4 h-fit flex flex-col justify-start items-start p-5">
                 <div className="flex w-full items-center pr-7">

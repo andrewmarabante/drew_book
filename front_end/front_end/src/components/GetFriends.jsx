@@ -3,7 +3,7 @@ import { v4 } from "uuid"
 
 export default function GetFriends({list}){
     return(
-            <div className="h-full bg-green-100 flex justify-center items-center rounded-2xl">
+            <div className="h-full bg-gradient-to-r from-blue-100 to-green-100 flex justify-center items-center rounded-2xl">
                 <div className="h-4/5 bg-white w-4/5 rounded-2xl shadow-lg flex flex-col justify-start items-center overflow-scroll gap-5 pt-10 pb-16">
                     {list && list.map((user) => {
                         return(

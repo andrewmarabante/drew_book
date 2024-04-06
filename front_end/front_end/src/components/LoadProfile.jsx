@@ -245,7 +245,7 @@ export default function LoadProfile({id, friends}){
                     </div>}
 
                 </div>
-                <div className="flex flex-col justify-around w-full h-96 border-b-2">
+                <div className="flex flex-col justify-around w-full h-96 border-b-2 pb-5">
                     <div className="w-fit text-center text-2xl border-b-2">Personal Information: </div>
                     
                     <div className="flex justify-center gap-5">

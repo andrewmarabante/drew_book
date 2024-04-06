@@ -107,9 +107,9 @@ export default function LoadChat({chat, user, toggleReset}){
 
     }
     return(
-        <div className="bg-green-100 h-screen w-full flex justify-center items-center">
+        <div className="bg-gradient-to-r from-blue-100 to-green-100 h-screen w-full flex justify-center items-center">
             <div onClick={closeDelete} className="h-3/4 w-3/4 bg-white flex flex-col border rounded-2xl relative p-2">
-            <img src={x} alt="back" className="h-10 m-2 bg-red-200 rounded-lg absolute top-0 right-0 z-30"></img>
+            <img src={x} alt="back" className="h-10 m-2 bg-red-200 rounded-full absolute -top-5 -right-5 z-30"></img>
                 <div className="text-black w-full mb-2 relative overflow-scroll pb-5 overflow-y-auto h-full" id="messageContainer">
                     {chat && chat.messages.map(message => {
                         return(
@@ -129,7 +129,7 @@ export default function LoadChat({chat, user, toggleReset}){
                     rows={1} // Set initial number of rows
                     />
                     <div className="flex flex-col ">
-                        <img src={send} alt="send" className="h-20 hover:bg-blue    -100 rounded-lg" onClick={sendMessage}/>
+                        <img src={send} alt="send" className="h-20 hover:bg-blue-100 rounded-lg" onClick={sendMessage}/>
                     </div>
                 </div>
             </div>
