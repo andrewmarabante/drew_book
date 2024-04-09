@@ -43,7 +43,6 @@ function addInfo(req,res){
 
         userId = req.userInfo.userId;
 
-        console.log(profilePicURL)
 
         User.updateOne({_id : userId}, {profile_pic : profilePicURL})
         .then(result =>{

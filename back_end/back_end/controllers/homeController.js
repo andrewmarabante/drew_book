@@ -53,7 +53,6 @@ function createPost(req, res) {
                             likes: []
                         }
 
-                        console.log(postDetails)
 
                         const newPost = new Post(postDetails);
 
@@ -64,10 +63,53 @@ function createPost(req, res) {
                 }
             })
         })
+    }else{
+        postDetails = {
+            owner: req.userInfo.userId,
+            title: req.body.title,
+            images: [],
+            body: req.body.description,
+            comments: [],
+            likes: []
+        }
+
+        const newPost = new Post(postDetails);
+
+        newPost.save()
+            .then(result => res.status(200).json(result))
+            .catch(err => res.status(500).json(err))
     }
+}
+
+function addComment(req,res){
+
+    postId = req.body.postId;
+    body = req.body.comment;
+    userId = req.userInfo.userId;
+
+    User.find({_id: userId})
+    .then(result => {
+        user = result[0];
+        senderPic = user.profile_pic;
+        senderName = user.username;
+
+        comment = {
+            body : body,
+            senderPic : senderPic,
+            senderName : senderName
+        }
+
+        Post.updateOne({_id : postId}, {$push : {comments: comment}})
+        .then(result => {
+            res.status(200).json('done')
+        })
+    
+    })
+    .catch(err => res.status(500).json(err))
 }
 
 module.exports = {
     getPosts,
-    createPost
+    createPost,
+    addComment
 }

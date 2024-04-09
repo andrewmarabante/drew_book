@@ -38,7 +38,7 @@ export default function CreatePost({submitPost}){
                         <textarea className="border h-2/6 w-3/4 m-1 mb-5 rounded-lg p-2" name="body"></textarea>         
                         <div className="w-full flex flex-col justify-center items-center">
                             <div className="w-3/4">Images: </div>
-                            <div className="flex justify-start items-center bg-white p-5 rounded-lg gap-5 w-3/4 mb-5 mt-2 overflow-scroll">
+                            <div className="flex justify-start items-center bg-white p-5 rounded-lg gap-5 w-3/4 mb-5 mt-2 overflow-auto">
                                 {images.map((image)=>{
                                     return(
                                             <div key={v4()} className="h-fit w-fit flex-shrink-0 relative">

@@ -3,11 +3,13 @@ import Navbar from "./components/Navbar.jsx"
 import GetPosts from "./components/GetPosts.jsx"
 import CreatePost from "./components/CreatePost.jsx"
 import PostHeader from "./components/PostHeader.jsx"
+import {v4} from 'uuid'
 
 export default function App(){
     const[userPostsArray, setUserPostsArray] = useState(null)
     const[friendsPostsArray, setFriendspostsArray] = useState(null)
     const[userList, setUserList] = useState(null)
+    const[reset, setReset] = useState(null)
 
     const [userPosts, setUserPosts] = useState(false)
     const [friendPosts, setFriendPosts] = useState(true)
@@ -29,7 +31,7 @@ export default function App(){
                 setUserList(result.friendList)
             })
             .catch(err => console.log(err))
-    }, [userPosts, friendPosts])
+    }, [userPosts, friendPosts, reset])
 
     function togglePosts(type){
         if(type === 'user'){
@@ -58,10 +60,11 @@ export default function App(){
             formData.append('title', title)
             formData.append('description', description)
 
-            for(let i=0; i<images.length; i++)
+
+            if(images.length > 0){for(let i=0; i<images.length; i++)
             {
                 formData.append('image', images[i])
-            }
+            }}
 
 
 
@@ -77,14 +80,18 @@ export default function App(){
 
         }
 
+        function toggleReset(){
+            setReset(v4())
+        }
+
     return(
         <div className="min-h-screen bg-cover" style={{backgroundImage: "url('/public/green_background.avif')"}}>
             <Navbar title='Posts'></Navbar>
             <div className="pl-10 pr-10 pt-5 h-full">
                 <PostHeader togglePosts={togglePosts} userPosts={userPosts} friendPosts={friendPosts} createPost={createPost}></PostHeader>
                 {createPost && <CreatePost submitPost={submitPost}></CreatePost>}
-                {userPosts && <GetPosts posts={userPostsArray} userList={userList}></GetPosts>}
-                {friendPosts && <GetPosts posts={friendsPostsArray} userList={userList}></GetPosts>}
+                {userPosts && <GetPosts posts={userPostsArray} userList={userList} toggleReset={toggleReset}></GetPosts>}
+                {friendPosts && <GetPosts posts={friendsPostsArray} userList={userList} toggleReset={toggleReset}></GetPosts>}
             </div>
         </div>
     )

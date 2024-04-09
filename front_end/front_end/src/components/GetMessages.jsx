@@ -126,7 +126,7 @@ export default function LoadChat({chat, user, toggleReset}){
                     placeholder="Enter Message"
                     value={message}
                     onChange={handleTextChange}
-                    rows={1} // Set initial number of rows
+                    rows={1}
                     />
                     <div className="flex flex-col ">
                         <img src={send} alt="send" className="h-20 hover:bg-blue-100 rounded-lg" onClick={sendMessage}/>

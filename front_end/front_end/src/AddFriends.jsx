@@ -29,7 +29,7 @@ export default function(){
         <Navbar title='Add Friends'></Navbar>
         {suggested && <div className="p-10 pt-20 bg-cover h-screen" style={{backgroundImage: 'url(/public/green_background.avif)'}}>
             <div className="h-5/6">
-                <GetFriends list={suggested}></GetFriends>
+                <GetFriends list={suggested} profile={false}></GetFriends>
             </div>
             </div>}
         </div>

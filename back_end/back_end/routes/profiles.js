@@ -18,4 +18,5 @@ router.post('/', auth.authenticateToken, upload.single('image'), profileControll
 router.put('/add', auth.authenticateToken, profileControllers.addFriend)
 
 router.put('/remove', auth.authenticateToken, profileControllers.removeFriend)
+
 module.exports = router;

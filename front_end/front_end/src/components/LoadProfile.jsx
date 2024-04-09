@@ -6,6 +6,7 @@ import remove from '../assets/removeFriend.svg';
 import add from '../assets/addFriend.svg';
 import x from '../assets/x.svg'
 import GetFriends from "./GetFriends";
+import { useLocation } from 'react-router-dom';
 
 
 export default function LoadProfile({id, friends}){
@@ -23,6 +24,10 @@ export default function LoadProfile({id, friends}){
     const [left, setLeft] = useState('1/2')
     const [top, setTop] = useState('1/2')
     const [diameter, setDiameter] = useState(100)
+
+    const {search} = useLocation()
+    const params = new URLSearchParams(search)
+    const profile = params.get('profile');
 
     useEffect(()=>{
         
@@ -225,7 +230,7 @@ export default function LoadProfile({id, friends}){
 
     return(
         <div className="flex justify-center items-center min-h-screen h-auto p-10 bg-white rounded-2xl relative">
-            {id && <img src={x} alt="back" className="h-16 absolute top-1 right-1" onClick={()=>{window.location.href='/addFriends'}}></img>}
+            {id && <img src={x} alt="back" className="h-16 absolute top-1 right-1" onClick={()=>{window.location.href= `${profile === 'true' ? '/profiles' : '/addFriends'}`}}></img>}
             {(user && !editPhoto && currentUser) &&
             <div className="flex flex-col items-center justify-center w-full">
                 <div className="text-2xl">{user && user.username}</div>
@@ -274,7 +279,7 @@ export default function LoadProfile({id, friends}){
                     </div>
 
                 </div>
-                <div className="h-fit max-h-60 w-full border-b-2 overflow-scroll pt-3 pb-5">
+                <div className="h-fit max-h-60 w-full border-b-2 overflow-auto pt-3 pb-5">
                     <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Bio:</div></div>
                     <div className="text-lg font-thin pl-10 p-2">{user.bio ? user.bio : <div className="text-center mr-10">empty</div>}</div>
                 </div>
@@ -282,7 +287,7 @@ export default function LoadProfile({id, friends}){
                     <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Friends:</div></div>
                 </div>
                 <div className="w-5/6 h-96 mt-5">
-                    <GetFriends list={friends}></GetFriends>
+                    <GetFriends list={friends} profile={true}></GetFriends>
                 </div>
             </div>
             }

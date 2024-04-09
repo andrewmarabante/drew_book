@@ -62,7 +62,7 @@ export default function CreateChats({friendList}){
             <div className="text-5xl p-10">Create New Chat</div>
             <div className="bg-white rounded-lg shadow-lg w-3/4 h-fit flex flex-col justify-start items-start p-5">
                 <div className="flex w-full items-center pr-7">
-                    <div className="border border-gray-300 rounded-lg w-full p-2 text-gray-300 flex gap-2 overflow-scroll">
+                    <div className="border border-gray-300 rounded-lg w-full p-2 text-gray-300 flex gap-2 overflow-auto">
                         {recipientNames.length>0 ? recipientNames.map((name)=>{
                             return(
                                 <div key={v4()} className="border rounded-lg text-black p-2">
