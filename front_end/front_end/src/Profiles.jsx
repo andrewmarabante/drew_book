@@ -22,6 +22,9 @@ export default function Profiles(){
             })
                 .then(result => result.json())
                 .then(result => {
+                    if(result === '401' || result === '403'){
+                        window.location.href = '/login'
+                    }
                     setFriends(result)
                 })
                 .catch(err => console.log(err))

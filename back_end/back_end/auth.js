@@ -7,9 +7,9 @@ const User = require('./models/user')
 
 function authenticateToken(req,res,next){
     const token = req.cookies.jwt;
-    if (token == null){return res.sendStatus(401)}
+    if (token == null){return res.status(401).json('401')}
     jwt.verify(token, process.env.SECRET, (err, user) => {
-        if(err){return res.sendStatus(403)}
+        if(err){return res.status(403).json('403')}
         req.userInfo = user
         next()
     })

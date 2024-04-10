@@ -16,6 +16,17 @@ import * as React from 'react';
     const toggleDrawer = (newOpen) => () => {
       setOpen(newOpen);
     };
+
+    function handleLogout(){
+
+      fetch('http://localhost:3000/login/logout',{
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(window.location.href = '/login')
+    .catch(err => console.log(err))
+    
+    }
   
     const DrawerList = (
       <Box sx={{ width: 280, fontFamily: 'monospace', padding:'10px'}} role="presentation" onClick={toggleDrawer(false)}>
@@ -48,7 +59,7 @@ import * as React from 'react';
         </div>
         <Divider/>
 
-        <div className='flex hover:bg-green-100 mt-10 rounded-md p-3' onClick={()=>window.location.href = '/login'}>
+        <div className='flex hover:bg-green-100 mt-10 rounded-md p-3' onClick={handleLogout}>
             <img src={Logout} alt="Logout" className='h-14'/>
             <div className='w-full flex justify-start items-center pl-5'>
                 <div className='text-2xl'>Logout</div>

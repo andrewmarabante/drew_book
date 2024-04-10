@@ -26,11 +26,16 @@ export default function App(){
             })
             .then(result => result.json())
             .then(result => {
+                if(result === '401' || result === '403'){
+                    window.location.href = '/login'
+                }
                 setUserPostsArray(result.userPosts);
                 setFriendspostsArray(result.friendsPosts);
                 setUserList(result.friendList)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                console.log(err)
+            })
     }, [userPosts, friendPosts, reset])
 
     function togglePosts(type){
@@ -74,7 +79,13 @@ export default function App(){
                 body: formData,
                 credentials: 'include'
             })
-            .then(togglePosts('user'))
+            .then(result => result.json())
+            .then(result => {
+                if(result === '401' || result === '403'){
+                    window.location.href = '/login'
+                }
+                togglePosts('user')
+            })
             .catch(err => console.log(err))
 
 
@@ -90,7 +101,7 @@ export default function App(){
             <div className="pl-10 pr-10 pt-5 h-full">
                 <PostHeader togglePosts={togglePosts} userPosts={userPosts} friendPosts={friendPosts} createPost={createPost}></PostHeader>
                 {createPost && <CreatePost submitPost={submitPost}></CreatePost>}
-                {userPosts && <GetPosts posts={userPostsArray} userList={userList} toggleReset={toggleReset}></GetPosts>}
+                {userPosts && <GetPosts posts={userPostsArray} userList={userList} toggleReset={toggleReset} isUser={true}></GetPosts>}
                 {friendPosts && <GetPosts posts={friendsPostsArray} userList={userList} toggleReset={toggleReset}></GetPosts>}
             </div>
         </div>

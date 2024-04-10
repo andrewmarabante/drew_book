@@ -19,6 +19,11 @@ export default function Chats(){
         })
         .then(result => result.json())
         .then(result => {
+
+            if(result === '401' || result === '403'){
+                window.location.href = '/login'
+            }
+            
             const userInfo = result.friendList[result.friendList.length-1]
             result.friendList.pop()
            setUser(userInfo)

@@ -6,7 +6,7 @@ import trash from '../assets/trash.svg'
 import x from '../assets/x.svg'
 
 
-export default function LoadChat({chat, user, toggleReset}){
+export default function LoadChat({chat, user, toggleReset, goBack}){
     const [message, setMessage] = useState('')
     const [showDelete, setShowDelete] = useState(false);
     const [reset, setReset] = useState(null)
@@ -53,7 +53,6 @@ export default function LoadChat({chat, user, toggleReset}){
         })
             .then(result => result.json())
             .then(result => {
-                console.log(result)
                 setMessage('')
             })
             .catch(err => console.log(err))
@@ -76,7 +75,6 @@ export default function LoadChat({chat, user, toggleReset}){
 
     function handleDelete(messageId){
 
-        console.log(messageId)
 
         for(let i=0; i < chat.messages.length; i++){
             if(chat.messages[i].id === messageId){
@@ -97,10 +95,6 @@ export default function LoadChat({chat, user, toggleReset}){
             body: JSON.stringify(data),
             credentials: 'include'
         })
-            .then(result => result.json())
-            .then(_result => {
-                console.log('working')
-            })
             .catch(err => console.log(err))
 
        
@@ -109,7 +103,7 @@ export default function LoadChat({chat, user, toggleReset}){
     return(
         <div className="bg-gradient-to-r from-blue-100 to-green-100 h-screen w-full flex justify-center items-center">
             <div onClick={closeDelete} className="h-3/4 w-3/4 bg-white flex flex-col border rounded-2xl relative p-2">
-            <img src={x} alt="back" className="h-10 m-2 bg-red-200 rounded-full absolute -top-5 -right-5 z-30"></img>
+            <img src={x} alt="back" className="h-10 m-2 bg-red-200 rounded-full absolute -top-5 -right-5 z-30" onClick={goBack}></img>
                 <div className="text-black w-full mb-2 relative overflow-scroll pb-5 overflow-y-auto h-full" id="messageContainer">
                     {chat && chat.messages.map(message => {
                         return(

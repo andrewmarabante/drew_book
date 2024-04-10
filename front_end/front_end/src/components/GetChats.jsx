@@ -51,6 +51,10 @@ export default function GetChats({chatList, friendList, user, resetChat}){
     function toggleReset(){
         resetChat()
     }
+
+    function goBack(){
+        setShowChat(false)
+    }
     return(
         <div>
             {!showChat && <div className="flex flex-col justify-center bg-gradient-to-r from-blue-100 to-green-100 h-screen p-10 gap-5 rounded-xl">
@@ -72,7 +76,7 @@ export default function GetChats({chatList, friendList, user, resetChat}){
                 </div>
             </div>}
 
-            {showChat && <GetMessages chat={currentChat} user={user} toggleReset = {toggleReset}></GetMessages>}
+            {showChat && <GetMessages chat={currentChat} user={user} toggleReset = {toggleReset} goBack= {goBack}></GetMessages>}
         </div>
     )
 }

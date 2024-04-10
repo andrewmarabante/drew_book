@@ -155,9 +155,20 @@ function likePost(req, res){
     .catch(err => res.status(500).json(err))
 }
 
+function deletePost(req, res){
+    console.log(req.body)
+
+    postId = req.body.postId
+
+    Post.findByIdAndDelete({_id : postId})
+    .then(res.status(200).json())
+    .catch(err => res.status(500).json(err))
+}
+
 module.exports = {
     getPosts,
     createPost,
     addComment,
-    likePost
+    likePost,
+    deletePost
 }

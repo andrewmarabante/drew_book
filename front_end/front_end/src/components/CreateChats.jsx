@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import plus from '../assets/plus.svg'
 import minus from '../assets/minus.svg'
 import { v4 } from "uuid"
+import x from '../assets/x.svg'
 
 export default function CreateChats({friendList}){
     const [userList, setUserList] = useState(null)
@@ -57,6 +58,18 @@ export default function CreateChats({friendList}){
         .catch(err => console.log(err))
     }
 
+    function removeUser(name){
+        let tempNames = [...recipientNames]
+        let tempIds = [...recipientIds]
+
+        let index = tempNames.indexOf(name)
+
+        tempNames.splice(index,1)
+        tempIds.splice(index,1)
+
+        setRecipientNames(tempNames)
+        setRecipientIds(tempIds)
+    }
     return(
         <div className="bg-gradient-to-r from-blue-100 to-green-100 flex flex-col justify-start items-center pt-20 h-screen rounded-xl">
             <div className="text-5xl p-10">Create New Chat</div>
@@ -65,7 +78,8 @@ export default function CreateChats({friendList}){
                     <div className="border border-gray-300 rounded-lg w-full p-2 text-gray-300 flex gap-2 overflow-auto">
                         {recipientNames.length>0 ? recipientNames.map((name)=>{
                             return(
-                                <div key={v4()} className="border rounded-lg text-black p-2">
+                                <div key={v4()} className="border rounded-lg text-black p-2 relative">
+                                    <img src={x} alt="x" onClick={()=>removeUser(name)} className="h-3 absolute -top-1 -right-1 border rounded-full bg-red-100 hover:bg-red-300"/>
                                     {name}
                                 </div>
                             )

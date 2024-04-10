@@ -17,7 +17,9 @@ export default function(){
         })
             .then(result => result.json())
             .then(result => {
-                console.log(result  )
+                if(result === '401' || result === '403'){
+                    window.location.href = '/login'
+                }
                 setSuggested(result)
             })
             .catch(err => console.log(err))

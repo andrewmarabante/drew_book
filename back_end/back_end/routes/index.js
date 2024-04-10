@@ -13,4 +13,6 @@ router.post('/comment', auth.authenticateToken, homeController.addComment)
 
 router.post('/likes', auth.authenticateToken, homeController.likePost)
 
+router.delete('/', auth.authenticateToken, homeController.deletePost)
+
 module.exports = router;

@@ -44,6 +44,9 @@ export default function LoadProfile({id, friends}){
             })
                 .then(result => result.json())
                 .then(result => {
+                    if(result === '401' || result === '403'){
+                        window.location.href = '/login'
+                    }
                     setUser(result)
                 })
                 .catch(err => console.log(err))
@@ -59,6 +62,9 @@ export default function LoadProfile({id, friends}){
                 })
                 .then(result => result.json())
                 .then(result => {
+                    if(result === '401' || result === '403'){
+                        window.location.href = '/login'
+                    }
                     setCurrentUser(result)
                     if(!id){setUser(result)}
                 })
@@ -93,7 +99,12 @@ export default function LoadProfile({id, friends}){
             credentials: 'include'
         })
             .then(result => result.json())
-            .then(()=>{window.location.href = '/profiles'})
+            .then(()=>{
+                if(result === '401' || result === '403'){
+                    window.location.href = '/login'
+                }
+                window.location.href = '/profiles'
+            })
             .catch(err => console.log(err))
     }
 
@@ -237,6 +248,8 @@ export default function LoadProfile({id, friends}){
         const school = document.getElementById('school').value
         const hobbies = document.getElementById('hobbies').value
 
+        console.log(gender)
+
         const body = {
             age: age,
             gender: gender,
@@ -319,7 +332,7 @@ export default function LoadProfile({id, friends}){
 
                     <div className="flex justify-center gap-5">
                         <div className="w-40 text-xl font-mono">Gender: </div>
-                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.gender ? user.age : 'empty'}</div>}
+                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.gender ? user.gender : 'empty'}</div>}
                         {editInfo && <select id="gender" defaultValue={user.gender ? user.gender : 'Male'} className="w-80 text-center text-xl font-thin border rounded-lg p-1">
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -345,7 +358,7 @@ export default function LoadProfile({id, friends}){
                         {editInfo && <input id="hobbies" type="text" className="w-80 text-center text-xl font-thin border rounded-lg p-1" defaultValue={user.hobbies ? user.hobbies : 'Knitting'}></input>}
                     </div>
 
-                    <button className="rounded-lg p-3 hover:bg-blue-50 w-full" onClick={handleInfoSubmit}>Submit</button>
+                    {editInfo && <button className="rounded-lg p-3 hover:bg-blue-50 w-full" onClick={handleInfoSubmit}>Submit</button>}
 
                 </div>
                 <div className="h-fit max-h-60 w-full border-b-2 overflow-auto pt-3 pb-5">

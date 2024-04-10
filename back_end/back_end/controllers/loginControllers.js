@@ -57,8 +57,19 @@ const signOut = (req,res) => {
         res.cookie('jwt', '', { maxAge: 0, path: '/'})
         res.json()
 }
+
+const logoutUser = (req, res) => {
+    res.clearCookie('jwt', { 
+        expires: new Date(0),
+        path: '/', 
+        secure: true,
+        httpOnly: true
+    });
+    res.status(200).json()
+}
 module.exports = {
     newUser,
     loginUser,
-    signOut
+    signOut,
+    logoutUser
 }

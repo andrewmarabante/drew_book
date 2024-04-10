@@ -4,8 +4,9 @@ import thumbsDown from '../assets/thumbsDown.svg'
 import up from '../assets/up.svg'
 import down from '../assets/down.svg'
 import { useEffect, useState } from "react"
+import x from '../assets/x.svg'
 
-export default function GetPosts({posts, userList, toggleReset}){
+export default function GetPosts({posts, userList, toggleReset, isUser}){
     const[showComment, setShowComment] = useState('');
 
     function toggleComments(postId){
@@ -37,12 +38,45 @@ export default function GetPosts({posts, userList, toggleReset}){
         })
         .then(result => result.json())
         .then(result => {
-            console.log(result)
             toggleReset();
         })
         .catch(err => console.log(err))
     }
 
+    function deletePost(postId){
+
+        const data = {
+            postId : postId
+        }
+
+        fetch('http://localhost:3000/',{
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        })
+        .then(toggleReset())
+        .catch(error => {
+            if (error instanceof Error) {
+                // Network error or non-2xx status code
+                console.error('Error:', error.message);
+                if (error.response && error.response.status === 401) {
+                    console.log('working')
+                //   window.location.href = '/login'; 
+                } else if (error.response && error.response.status === 403) {
+                  // Handle 403 Forbidden error
+                  // Redirect or show an error message to the user
+                } else {
+                  // Handle other errors
+                }
+              } else {
+                // Handle other types of errors (e.g., TypeError)
+                console.error('Error:', error);
+              }
+        })
+    }
 
     return(
         <div className="flex flex-col justify-center items-center pt-20 min-h-screen rounded-xl bg-gradient-to-r from-blue-100 to-green-100">
@@ -80,6 +114,7 @@ export default function GetPosts({posts, userList, toggleReset}){
 
                 return(
                     <div key={v4()} className="mb-28 bg-white rounded-2xl shadow-lg w-3/4 h-fit p-10 relative flex flex-col justify-around">
+                        {isUser && <img src={x} alt="x" className="h-10 absolute top-2 right-2 hover:bg-red-100 rounded-lg" onClick={()=>deletePost(post._id)}></img>}
                         {userList.map((user)=>{
                             return(
                                 <div key={v4()} className="absolute top-0">{(user._id === post.owner) && <div className="flex justify-start items-center relative -top-5 bg-white rounded-xl"><img src={user.profile_pic} alt="Profile Pic" className="h-14 w-14 rounded-full absolute -left-5 -top-1 border"></img><div className="text-xl border rounded-lg p-2 pl-12 font-extralight shadow-lg pr-5">{user.username}</div></div>}</div>
