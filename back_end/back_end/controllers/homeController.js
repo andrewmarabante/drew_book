@@ -1,6 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
-const cloudinary = require('../cloudinary')
+const cloudinary = require('../cloudinary');
 
 function getPosts(req, res) {
     user = req.userInfo.userId
@@ -50,7 +50,8 @@ function createPost(req, res) {
                             images: imageURLs,
                             body: req.body.description,
                             comments: [],
-                            likes: []
+                            likes: [],
+                            dislikes: []
                         }
 
 
@@ -108,8 +109,55 @@ function addComment(req,res){
     .catch(err => res.status(500).json(err))
 }
 
+function likePost(req, res){
+
+    emote = req.body.emote;
+    postId = req.body.postId;
+    userId = req.userInfo.userId;
+
+    Post.find({_id : postId})
+    .then(result => {
+        post = result[0];
+        console.log(post.dislikes)
+        if(post.likes.includes(userId) && emote === 'like'){
+            res.status(200).json('already likes')
+            return
+        }else if(post.dislikes.includes(userId)&& emote === 'dislike'){
+            res.status(200).json('already dislikes')
+        }else if(!post.likes.includes(userId) && !post.dislikes.includes(userId)){
+            if(emote === 'like'){
+                Post.updateOne({_id : postId}, {$push : {likes : userId}})
+                .then(result => {
+                    res.status(200).json(result)
+                    return
+                })
+            }else{
+                Post.updateOne({_id : postId}, {$push : {dislikes : userId}})
+                .then(result => {
+                    res.status(200).json(result)
+                    return
+                })
+            }
+        }else if(post.dislikes.includes(userId) && emote === 'like'){
+            Post.updateOne({_id : postId}, {$pull : {dislikes : userId}, $push : {likes : userId}})
+            .then(result => {
+                res.status(200).json(result)
+                return
+            })
+        }else if(post.likes.includes(userId) && emote === 'dislike'){
+            Post.updateOne({_id : postId}, {$pull : {likes : userId}, $push : {dislikes : userId}})
+            .then(result => {
+                res.status(200).json(result)
+                return
+            })
+        }
+    })
+    .catch(err => res.status(500).json(err))
+}
+
 module.exports = {
     getPosts,
     createPost,
-    addComment
+    addComment,
+    likePost
 }

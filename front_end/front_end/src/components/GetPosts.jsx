@@ -17,6 +17,32 @@ export default function GetPosts({posts, userList, toggleReset}){
         }
     }
 
+    function handleEmote(emote, postId){
+        
+
+        const data = {
+            emote : emote,
+            postId : postId
+        }
+
+        
+
+        fetch('http://localhost:3000/likes',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            credentials: 'include'
+        })
+        .then(result => result.json())
+        .then(result => {
+            console.log(result)
+            toggleReset();
+        })
+        .catch(err => console.log(err))
+    }
+
 
     return(
         <div className="flex flex-col justify-center items-center pt-20 min-h-screen rounded-xl bg-gradient-to-r from-blue-100 to-green-100">
@@ -27,7 +53,6 @@ export default function GetPosts({posts, userList, toggleReset}){
                 {
                    if(e.key === 'Enter' && e.target.value !== '')
                    {
-
                     const body = {
                         postId : post._id,
                         comment : e.target.value
@@ -86,9 +111,11 @@ export default function GetPosts({posts, userList, toggleReset}){
                             <input className="w-full h-14 border rounded-xl pl-3 shadow-lg" placeholder="Comment" onKeyDown={sendComment} rows={1}/>
                             </div>}
                         <div className="flex justify-between p-2">
-                            <div className="flex gap-1">
-                                <img src={thumbsUp} alt="like" className="h-7 hover:bg-blue-100 rounded-lg"/>
-                                <img src={thumbsDown} alt="dislike" className="h-7 hover:bg-red-100 rounded-lg"/>
+                            <div className="flex gap-1 relative">
+                                <img src={thumbsUp} alt="like" className="h-7 hover:bg-blue-100 rounded-lg" onClick={()=>handleEmote('like', post._id)}/>
+                                <img src={thumbsDown} alt="dislike" className="h-7 hover:bg-red-100 rounded-lg" onClick={()=>handleEmote('dislike', post._id)}/>
+                                <div className="absolute text-xs font-normal -bottom-3 left-0">{post.likes.length}</div>
+                                <div className="absolute text-xs font-normal -bottom-3 right-0">{post.dislikes.length}</div>
                             </div>
                             <div className="flex">
                                 <div className="hover:text-green-700" onClick={()=>toggleComments(post._id)}>Comments</div>

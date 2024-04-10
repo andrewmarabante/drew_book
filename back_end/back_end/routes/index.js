@@ -11,4 +11,6 @@ router.post('/', auth.authenticateToken, upload.array('image', 5) ,homeControlle
 
 router.post('/comment', auth.authenticateToken, homeController.addComment)
 
+router.post('/likes', auth.authenticateToken, homeController.likePost)
+
 module.exports = router;

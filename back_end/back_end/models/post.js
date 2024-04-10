@@ -22,7 +22,11 @@ const postSchema = new Schema({
     },
     likes : {
         type : Array,
+    },
+    dislikes : {
+        type : Array,
     }
+    
     
 }, {timestamps: true})
 
