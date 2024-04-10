@@ -123,11 +123,35 @@ function getFriends(req, res){
     .catch(err => json.status(500).json(err))
 }
 
+function updateInfo(req, res){
+    info = req.body
+    userId = req.userInfo.userId
+
+    User.updateOne({_id : userId}, info)
+    .then(result => {
+        res.status(200).json(result)
+    })
+    .catch(err => res.status(500).json(err))
+}
+
+function updateBio(req,res){
+    bio = req.body.bio;
+    console.log(bio)
+    userId = req.userInfo.userId;
+
+    User.updateOne({_id : userId}, {bio: bio})
+    .then(result => res.status(200).json(result))
+    .catch(err => res.status(500).json(err))
+
+}
+
 module.exports = {
     getUser,
     addInfo,
     getSuggested,
     addFriend,
     removeFriend,
-    getFriends
+    getFriends,
+    updateInfo,
+    updateBio
 }

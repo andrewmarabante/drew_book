@@ -19,4 +19,8 @@ router.put('/add', auth.authenticateToken, profileControllers.addFriend)
 
 router.put('/remove', auth.authenticateToken, profileControllers.removeFriend)
 
+router.put('/info', auth.authenticateToken, profileControllers.updateInfo)
+
+router.put('/bio', auth.authenticateToken, profileControllers.updateBio)
+
 module.exports = router;

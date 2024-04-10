@@ -70,7 +70,7 @@ export default function GetPosts({posts, userList, toggleReset}){
                             toggleReset()
                             setTimeout(()=>{
                             let commentBox = document.getElementById('commentBox')
-                            commentBox.scrollTop = commentBox.scrollHeight}, 400)
+                            commentBox.scrollTop = commentBox.scrollHeight}, 500)
                         })
                         .catch(err => console.log(err))
 

@@ -24,6 +24,8 @@ export default function LoadProfile({id, friends}){
     const [left, setLeft] = useState('1/2')
     const [top, setTop] = useState('1/2')
     const [diameter, setDiameter] = useState(100)
+    const [editInfo, setEditInfo] = useState(false)
+    const [editBio, setEditBio] = useState(false)
 
     const {search} = useLocation()
     const params = new URLSearchParams(search)
@@ -228,6 +230,58 @@ export default function LoadProfile({id, friends}){
 
     }
 
+    function handleInfoSubmit(){
+        const age = document.getElementById('age').value
+        const gender = document.getElementById('gender').value
+        const occupation = document.getElementById('occupation').value
+        const school = document.getElementById('school').value
+        const hobbies = document.getElementById('hobbies').value
+
+        const body = {
+            age: age,
+            gender: gender,
+            occupation: occupation,
+            school: school,
+            hobbies: hobbies
+        }
+
+        fetch('http://localhost:3000/profiles/info', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json', 
+              },
+            body: JSON.stringify(body),
+            credentials: 'include'
+        })
+        .then(() => {
+            setEditInfo(false)
+            setReset(v4())
+        })
+        .catch(err => console.log(err))
+    }
+
+    function handleBioSubmit(){
+        const bio = document.getElementById('bio').value
+
+        const body = {
+            bio: bio
+        }
+
+        fetch('http://localhost:3000/profiles/bio', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json', 
+              },
+            body: JSON.stringify(body),
+            credentials: 'include'
+        })
+        .then(() => {
+            setEditBio(false)
+            setReset(v4())
+        })
+        .catch(err => console.log(err))
+    }
+
     return(
         <div className="flex justify-center items-center min-h-screen h-auto p-10 bg-white rounded-2xl relative">
             {id && <img src={x} alt="back" className="h-16 absolute top-1 right-1" onClick={()=>{window.location.href= `${profile === 'true' ? '/profiles' : '/addFriends'}`}}></img>}
@@ -238,7 +292,7 @@ export default function LoadProfile({id, friends}){
                     {user.profile_pic && <img src={user.profile_pic} alt="profile pic" className="h-60 w-60 rounded-full shadow-lg border border-black" />}
                     
                     {!id && <div className="text-center m-5 text-xs select-none flex justify-end items-center w-60">
-                        <div>Edit</div><img src={edit} className="h-6" onClick={()=>setEditPhoto(true)}></img>
+                        <img src={edit} className="h-6" onClick={()=>setEditPhoto(true)}></img>
                     </div>}
 
                     {(id && currentUser.friends.includes(user._id)) && <div className="text-center m-5 text-xs select-none flex justify-end items-center w-60">
@@ -251,37 +305,58 @@ export default function LoadProfile({id, friends}){
 
                 </div>
                 <div className="flex flex-col justify-around w-full h-96 border-b-2 pb-5">
-                    <div className="w-fit text-center text-2xl border-b-2">Personal Information: </div>
+                    <div className="flex justify-between items-center">
+                        <div className="w-fit text-center text-2xl border-b-2">Personal Information: </div>
+                        {!editInfo && <img src={edit} alt="edit" className="h-6" onClick={()=>{setEditInfo(true)}}/>}
+                        {editInfo && <img src={x} alt="x" className="h-6" onClick={()=> setEditInfo(false)}></img>}
+                    </div>
                     
                     <div className="flex justify-center gap-5">
                         <div className="w-40 text-xl font-mono">Age: </div>
-                        <div className="w-80 text-center text-xl font-thin">{user.age ? user.age : 'empty'}</div>
+                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.age ? user.age : 'empty'}</div>}
+                        {editInfo && <input id="age" type="number" className="w-80 text-center text-xl font-thin border rounded-lg p-1" defaultValue={user.age ? user.age : 24}></input>}
                     </div>
 
                     <div className="flex justify-center gap-5">
                         <div className="w-40 text-xl font-mono">Gender: </div>
-                        <div className="w-80 text-center text-xl font-thin">{user.gender ? user.age : 'empty'}</div>
+                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.gender ? user.age : 'empty'}</div>}
+                        {editInfo && <select id="gender" defaultValue={user.gender ? user.gender : 'Male'} className="w-80 text-center text-xl font-thin border rounded-lg p-1">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            </select>}
                     </div>
 
                     <div className="flex justify-center gap-5">
                         <div className="w-40 text-xl font-mono">Occupation: </div>
-                        <div className="w-80 text-center text-xl font-thin">{user.occupation ? user.occupation : 'empty'}</div>
+                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.occupation ? user.occupation : 'empty'}</div>}
+                        {editInfo && <input id='occupation' type="text" className="w-80 text-center text-xl font-thin border rounded-lg p-1" defaultValue={user.occupation ? user.occupation : 'Teacher'}></input>}
                     </div>
 
                     <div className="flex justify-center gap-5">
                         <div className="w-40 text-xl font-mono">School: </div>
-                        <div className="w-80 text-center text-xl font-thin">{user.school ? user.school : 'empty'}</div>
+                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.school ? user.school : 'empty'}</div>}
+                        {editInfo && <input id="school" type="text" className="w-80 text-center text-xl font-thin border rounded-lg p-1" defaultValue={user.school ? user.school : 'UCSB'}></input>}
                     </div>
 
                     <div className="flex justify-center gap-5">
                         <div className="w-40 text-xl font-mono">Hobbies: </div>
-                        <div className="w-80 text-center text-xl font-thin">{user.hobbies ? user.hobbies : 'empty'}</div>
+                        {!editInfo && <div className="w-80 text-center text-xl font-thin p-1">{user.hobbies ? user.hobbies : 'empty'}</div>}
+                        {editInfo && <input id="hobbies" type="text" className="w-80 text-center text-xl font-thin border rounded-lg p-1" defaultValue={user.hobbies ? user.hobbies : 'Knitting'}></input>}
                     </div>
+
+                    <button className="rounded-lg p-3 hover:bg-blue-50 w-full" onClick={handleInfoSubmit}>Submit</button>
 
                 </div>
                 <div className="h-fit max-h-60 w-full border-b-2 overflow-auto pt-3 pb-5">
-                    <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Bio:</div></div>
-                    <div className="text-lg font-thin pl-10 p-2">{user.bio ? user.bio : <div className="text-center mr-10">empty</div>}</div>
+                    <div className="flex justify-between items-center">
+                        <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Bio:</div></div>
+                        {!editBio && <img src={edit} alt="edit" className="h-6" onClick={()=>setEditBio(true)}/>}
+                        {editBio && <img src={x} alt="x" className="h-6" onClick={()=>setEditBio(false)}/>}
+                    </div>
+                    {!editBio && <div className="text-lg font-thin pl-10 p-2">{user.bio ? user.bio : <div className="text-center mr-10">empty</div>}</div>}
+                    {editBio && <textarea id="bio" className="text-lg font-thin p-2 border rounded-lg w-full" defaultValue={user.bio ? user.bio : 'Some really cool Bio!'}></textarea>}
+                    {editBio && <button onClick={handleBioSubmit} className="rounded-lg p-3 hover:bg-blue-50 w-full">Submit</button>}
                 </div>
                 <div className="w-full pt-3">
                     <div className="text-2xl w-full mt-2 mb-2"><div className="w-fit border-b-2">Friends:</div></div>
@@ -293,6 +368,7 @@ export default function LoadProfile({id, friends}){
             }
             {editPhoto &&
             <div className="pt-20 h-fit w-3/4 flex flex-col justify-around items-center border rounded-2xl shadow-lg bg-green-100 relative bg-gradient-to-r from-green-300 to-green-50">
+                <img src={x} alt="x" onClick={()=>setEditPhoto(false)} className="absolute right-0 top-0 h-10"/>
                 <div className="absolute top-5 text-2xl">Profile Picture: </div>
                 <div className="flex flex-col justify-center items-center w-full h-full">
                     <div className="flex justify-end items-center h-3/4 w-3/4">
