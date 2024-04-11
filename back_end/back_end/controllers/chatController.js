@@ -79,9 +79,20 @@ function deleteMessage(req, res){
 
 }
 
+function getUsers(req,res){
+    users = req.body.users
+
+    User.find({_id : {$in : users}})
+    .then(result => {
+        res.status(200).json(result)
+    })
+    .catch(err => res.status(500).json(err))
+}
+
 module.exports = {
     getChats,
     newChat,
     newMessage,
-    deleteMessage
+    deleteMessage,
+    getUsers
 }

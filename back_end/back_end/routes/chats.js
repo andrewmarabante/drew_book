@@ -12,4 +12,6 @@ router.put('/', auth.authenticateToken, chatController.newMessage)
 
 router.delete('/', auth.authenticateToken, chatController.deleteMessage)
 
+router.post('/group', auth.authenticateToken, chatController.getUsers)
+
 module.exports = router;
