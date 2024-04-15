@@ -1,6 +1,4 @@
-if(process.env.NODE_ENV !== 'production'){
-  require('dotenv').config();
-}
+require('dotenv').config();
 
 var cors = require('cors')
 var createError = require('http-errors');
