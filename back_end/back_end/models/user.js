@@ -8,7 +8,9 @@ const userSchema = new Schema({
     },
     password : {
         type : String,
-        required : true
+    },
+    refresh_token : {
+        type : String,
     },
     friends : {
         type : Array,

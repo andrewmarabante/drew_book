@@ -86,8 +86,8 @@ export default function GetChats({chatList, friendList, user, resetChat}){
     return(
         <div>
             {!showChat && <div className="flex flex-col justify-center bg-gradient-to-r from-blue-100 to-green-100 h-screen p-10 gap-5 rounded-xl">
-                <div className="flex flex-col items-center bg-white rounded-lg h-1/2 shadow-lg overflow-auto w-full font-thin p-2 border">
-                    <div className="border-b-2 text-2xl p-5 text-center font-serif w-full mb-5">Group Chats: </div>
+                <div className="flex flex-col items-center bg-white rounded-lg h-1/2 shadow-lg overflow-auto w-full font-thin p-2 border relative">
+                    <div className="border-b-2 text-2xl p-5 text-center font-serif w-full mb-5 sticky -top-3 bg-white z-10">Group Chats: </div>
                     {groupArray && groupArray.map((chat)=>{
 
                         let usersArray = []
@@ -117,8 +117,8 @@ export default function GetChats({chatList, friendList, user, resetChat}){
                         )
                     })}
                 </div>
-                <div className="flex flex-col items-center bg-white rounded-lg h-1/2 shadow-lg overflow-auto w-full font-thin p-2 border">
-                    <div className="border-b-2 text-2xl p-5 text-center font-serif w-full mb-5">Personal Chats: </div>
+                <div className="flex flex-col items-center bg-white rounded-lg h-1/2 shadow-lg overflow-auto w-full font-thin p-2 border relative">
+                    <div className="border-b-2 text-2xl p-5 text-center font-serif w-full mb-5 sticky -top-3 bg-white z-10">Personal Chats: </div>
                     {personalArray && personalArray.map((chat)=>{
 
                         let otherUser

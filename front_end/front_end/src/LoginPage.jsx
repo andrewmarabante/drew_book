@@ -1,4 +1,5 @@
 import { useState } from "react"
+import GoogleIcon from '@mui/icons-material/Google';
 
 
 export default function Login(){
@@ -48,7 +49,8 @@ export default function Login(){
             .then(result => result.json())
             .then(answer => 
                 {
-                if(answer === 'Wrong Username'){setLoginMessage('Wrong Username')}
+                if(answer === 'google'){setLoginMessage('Sign In With Google')}
+                else if(answer === 'Wrong Username'){setLoginMessage('Wrong Username')}
                 else if(answer === 'Wrong Password!'){setLoginMessage('Wrong Password')}
                 else if(answer === 'success'){window.location.href = '/'}})
             .catch(err => console.log(err))
@@ -75,6 +77,7 @@ export default function Login(){
     }
 
 
+
     return(
     <div className="flex justify-center items-center p-32 bg-green-100 h-screen">
         <div className="flex justify-center items-center flex-col w-96 bg-white rounded-3xl shadow-lg">
@@ -95,6 +98,11 @@ export default function Login(){
             {!login && <div className="text-xs">Already have an account?</div>}
             {login && <button className="w-40 border p-1 rounded-lg hover:bg-blue-50 mb-6 mt-2" onClick={handleChange}>Sign Up</button>}
             {!login && <button className="w-40 border p-1 rounded-lg hover:bg-blue-50 mb-6 mt-2" onClick={handleChange}>Log In</button>}
+            <form action="http://localhost:3000/login/google" method="GET" className="w-5/6 border-t-2 flex justify-center">
+                <button type="submit" className="flex items-center justify-center h-10 bg-blue-100 border border-green-300 rounded-xl pl-4 pr-4 m-2">
+                    <GoogleIcon></GoogleIcon>
+                    Sign in with google</button>
+            </form>
         </div>
     </div>
     )

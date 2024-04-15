@@ -58,24 +58,7 @@ export default function GetPosts({posts, userList, toggleReset, isUser}){
             credentials: 'include'
         })
         .then(toggleReset())
-        .catch(error => {
-            if (error instanceof Error) {
-                // Network error or non-2xx status code
-                console.error('Error:', error.message);
-                if (error.response && error.response.status === 401) {
-                    console.log('working')
-                //   window.location.href = '/login'; 
-                } else if (error.response && error.response.status === 403) {
-                  // Handle 403 Forbidden error
-                  // Redirect or show an error message to the user
-                } else {
-                  // Handle other errors
-                }
-              } else {
-                // Handle other types of errors (e.g., TypeError)
-                console.error('Error:', error);
-              }
-        })
+        .catch(err => console.log(err))
     }
 
     return(

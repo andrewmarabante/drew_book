@@ -103,11 +103,11 @@ function removeFriend(req, res){
 }
 
 function getFriends(req, res){
+
     if(req.params.id === ':null'){
         userId = req.userInfo.userId;
     }else{
         userId = req.params.id.slice(1)
-        console.log(userId)
     }
 
     User.find({_id : userId})
