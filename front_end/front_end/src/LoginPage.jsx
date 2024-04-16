@@ -38,7 +38,7 @@ export default function Login(){
         }
 
         if(login){
-            fetch('http://localhost:3000/login',{
+            fetch('https://drewbook-backend.fly.dev/login',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ export default function Login(){
                 else if(answer === 'success'){window.location.href = '/'}})
             .catch(err => console.log(err))
         }else{
-            fetch('http://localhost:3000/login/signup',{
+            fetch('https://drewbook-backend.fly.dev/login',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -36,6 +36,10 @@ const newUser = async (req, res) => {
 const loginUser = (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
+
+    console.log('Username: '+username)
+    console.log('Pass: ' + password)
+
     User.find({username : username})
     .then(async (user) => {
         if(user.length === 0){
@@ -51,7 +55,8 @@ const loginUser = (req,res) => {
         }else{
             const accessToken = auth.jwt.sign({userId : user[0]._id}, process.env.SECRET, {expiresIn:'10m'});
 
-            res.cookie('jwt', accessToken, { httpOnly: true, path: '/'});
+            console.log(accessToken)
+            res.cookie('jwt', accessToken, { httpOnly: true, path: '/', domain: 'drew-book-jo6x.vercel.app'});
             return res.json('success')
 
         }}

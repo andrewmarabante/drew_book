@@ -12,7 +12,7 @@ var profilesRouter = require('./routes/profiles');
 var chatsRouter = require('./routes/chats');
 var loginRouter = require('./routes/login');
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000']; 
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://drew-book-jo6x.vercel.app']; 
 const corsOptions = {
   origin: true,
   credentials: true 
@@ -29,6 +29,7 @@ mongoose.connect(process.env.uri)
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
 
 app.use(cors(corsOptions));
 app.use(logger('dev'));

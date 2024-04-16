@@ -17,7 +17,7 @@ export default function App(){
 
     useEffect(()=>{
 
-        fetch('http://localhost:3000/',{
+        fetch('https://drewbook-backend.fly.dev/',{
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +74,7 @@ export default function App(){
 
 
 
-            fetch('http://localhost:3000/',{
+            fetch('https://drewbook-backend.fly.dev/',{
                 method: 'POST',
                 body: formData,
                 credentials: 'include'
