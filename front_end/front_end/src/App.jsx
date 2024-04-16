@@ -27,7 +27,7 @@ export default function App(){
             .then(result => result.json())
             .then(result => {
                 if(result === '401' || result === '403'){
-                    window.location.href = '/login'
+                    // window.location.href = '/login'
                 }
                 setUserPostsArray(result.userPosts);
                 setFriendspostsArray(result.friendsPosts);
@@ -82,7 +82,7 @@ export default function App(){
             .then(result => result.json())
             .then(result => {
                 if(result === '401' || result === '403'){
-                    window.location.href = '/login'
+                    // window.location.href = '/login'
                 }
                 togglePosts('user')
             })

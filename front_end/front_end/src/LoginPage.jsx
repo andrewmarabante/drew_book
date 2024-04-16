@@ -49,10 +49,11 @@ export default function Login(){
             .then(result => result.json())
             .then(answer => 
                 {
-                if(answer === 'google'){setLoginMessage('Sign In With Google')}
-                else if(answer === 'Wrong Username'){setLoginMessage('Wrong Username')}
-                else if(answer === 'Wrong Password!'){setLoginMessage('Wrong Password')}
-                else if(answer === 'success'){window.location.href = '/'}})
+                // if(answer === 'google'){setLoginMessage('Sign In With Google')}
+                // else if(answer === 'Wrong Username'){setLoginMessage('Wrong Username')}
+                // else if(answer === 'Wrong Password!'){setLoginMessage('Wrong Password')}
+                // else if(answer === 'success'){window.location.href = '/'}
+            })
             .catch(err => console.log(err))
         }else{
             fetch('https://drewbook-backend.fly.dev/login',{
@@ -68,7 +69,7 @@ export default function Login(){
                 if(result === 'Username Taken'){
                     setSignUpMessage(result)
                 }else{
-                    window.location.href = '/login'
+                    // window.location.href = '/login'
                 }
             })
             .catch(err => console.log(err))

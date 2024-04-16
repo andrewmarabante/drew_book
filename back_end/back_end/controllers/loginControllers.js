@@ -56,7 +56,7 @@ const loginUser = (req,res) => {
             const accessToken = auth.jwt.sign({userId : user[0]._id}, process.env.SECRET, {expiresIn:'10m'});
 
             console.log(accessToken)
-            res.cookie('jwt', accessToken, { httpOnly: true, path: '/', domain: 'drew-book-jo6x.vercel.app'});
+            res.cookie('jwt', accessToken, { httpOnly: true, path: '/'})
             return res.json('success')
 
         }}
