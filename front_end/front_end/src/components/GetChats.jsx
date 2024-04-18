@@ -52,10 +52,12 @@ export default function GetChats({chatList, friendList, user, resetChat}){
             users : groupUsers
         }
         
-        fetch('http://localhost:3000/chats/group', {
+        fetch('https://drewbook-backend.fly.dev/chats/group', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
               },
             body: JSON.stringify(body),
             credentials: 'include'

@@ -46,10 +46,12 @@ export default function CreateChats({friendList}){
             chatName : chatName,
         }
 
-        fetch('http://localhost:3000/chats',{
+        fetch('https://drewbook-backend.fly.dev/chats',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(body),
             credentials: 'include'
