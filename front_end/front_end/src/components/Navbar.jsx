@@ -19,9 +19,11 @@ import * as React from 'react';
 
     function handleLogout(){
 
-      fetch('http://localhost:3000/login/logout',{
+      fetch('https://drewbook-backend.fly.dev/login/logout',{
         method: 'GET',
-        credentials: 'include'
+        credentials: 'include',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
     })
     .then(window.location.href = '/login')
     .catch(err => console.log(err))

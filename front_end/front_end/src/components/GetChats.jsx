@@ -52,10 +52,12 @@ export default function GetChats({chatList, friendList, user, resetChat}){
             users : groupUsers
         }
         
-        fetch('http://localhost:3000/chats/group', {
+        fetch('https://drewbook-backend.fly.dev/chats/group', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
               },
             body: JSON.stringify(body),
             credentials: 'include'
@@ -86,7 +88,8 @@ export default function GetChats({chatList, friendList, user, resetChat}){
     return(
         <div>
             {!showChat && <div className="flex flex-col justify-center bg-gradient-to-r from-blue-100 to-green-100 h-screen p-10 gap-5 rounded-xl">
-                <div className="flex flex-col items-center bg-white rounded-lg h-1/2 shadow-lg overflow-auto w-full font-thin p-2 border relative">
+                <div className="flex flex-col items-center bg-white rounded-lg h-1/2 shadow-lg overflow-x-hidden overflow-y-auto w-full font-thin p-2 border relative">
+                    
                     <div className="border-b-2 text-2xl p-5 text-center font-serif w-full mb-5 sticky -top-3 bg-white z-10">Group Chats: </div>
                     {groupArray && groupArray.map((chat)=>{
 
@@ -103,7 +106,7 @@ export default function GetChats({chatList, friendList, user, resetChat}){
                         return(
                             <div key={v4()} className="text-center p-4 text-xl border rounded-lg m-2 hover:bg-green-100 flex flex-col justify-center items-center gap-3 w-full " onClick={()=>openChat(chat)}>
                                 <div className='text-3xl border-b-2 text-center w-3/12 pb-2'>{chat.chat_name}</div>
-                                <div className="flex justify-center items-center gap-5 overflow-scroll w-11/12">
+                                <div className="flex justify-center items-center gap-5 overflow-y-hidden overflow-x-auto w-11/12 h-10">
                                     {usersArray.map(user => {
                                         return(
                                             <div key={v4()} className="flex relative border rounded-md items-center">

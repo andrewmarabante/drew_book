@@ -38,10 +38,12 @@ export default function Login(){
         }
 
         if(login){
-            fetch('http://localhost:3000/login',{
+            fetch('https://drewbook-backend.fly.dev/login',{
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': '*',
                 },
                 body: JSON.stringify(data),
                 credentials: 'include'
@@ -52,13 +54,16 @@ export default function Login(){
                 if(answer === 'google'){setLoginMessage('Sign In With Google')}
                 else if(answer === 'Wrong Username'){setLoginMessage('Wrong Username')}
                 else if(answer === 'Wrong Password!'){setLoginMessage('Wrong Password')}
-                else if(answer === 'success'){window.location.href = '/'}})
+                else if(answer === 'success'){window.location.href = '/'}
+            })
             .catch(err => console.log(err))
         }else{
-            fetch('http://localhost:3000/login/signup',{
+            fetch('https://drewbook-backend.fly.dev/login',{
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': '*',
                 },
                 body: JSON.stringify(data),
                 credentials: 'include'

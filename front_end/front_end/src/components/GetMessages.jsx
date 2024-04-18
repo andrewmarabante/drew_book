@@ -43,10 +43,12 @@ export default function LoadChat({chat, user, toggleReset, goBack}){
             id : messageId
         }
 
-        fetch('http://localhost:3000/chats', {
+        fetch('https://drewbook-backend.fly.dev/chats', {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(data),
             credentials: 'include'
@@ -87,10 +89,12 @@ export default function LoadChat({chat, user, toggleReset, goBack}){
             messageId : messageId
         }
 
-        fetch('http://localhost:3000/chats', {
+        fetch('https://drewbook-backend.fly.dev/chats', {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(data),
             credentials: 'include'

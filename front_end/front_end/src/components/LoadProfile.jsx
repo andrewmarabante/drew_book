@@ -35,10 +35,12 @@ export default function LoadProfile({ id, friends }) {
 
 
         if (id) {
-            fetch(`http://localhost:3000/profiles/:${id}`, {
+            fetch(`https://drewbook-backend.fly.dev/profiles/:${id}`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': '*',
                 },
                 credentials: 'include'
             })
@@ -53,10 +55,12 @@ export default function LoadProfile({ id, friends }) {
 
         }
 
-        fetch('http://localhost:3000/profiles', {
+        fetch('https://drewbook-backend.fly.dev/profiles', {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             credentials: 'include'
         })
@@ -93,10 +97,12 @@ export default function LoadProfile({ id, friends }) {
         formData.append('width', data.cropWidth)
 
 
-        fetch('http://localhost:3000/profiles', {
+        fetch('https://drewbook-backend.fly.dev/profiles', {
             method: 'POST',
             body: formData,
-            credentials: 'include'
+            credentials: 'include',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Headers': '*',
         })
             .then(() => { window.location.href = '/profiles' })
             .catch(err => console.log(err))
@@ -198,10 +204,12 @@ export default function LoadProfile({ id, friends }) {
             id: id
         }
 
-        fetch(`http://localhost:3000/profiles/add`, {
+        fetch(`https://drewbook-backend.fly.dev/profiles/add`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(body),
             credentials: 'include'
@@ -219,10 +227,12 @@ export default function LoadProfile({ id, friends }) {
             id: id
         }
 
-        fetch(`http://localhost:3000/profiles/remove`, {
+        fetch(`https://drewbook-backend.fly.dev/profiles/remove`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(body),
             credentials: 'include'
@@ -252,10 +262,12 @@ export default function LoadProfile({ id, friends }) {
             hobbies: hobbies
         }
 
-        fetch('http://localhost:3000/profiles/info', {
+        fetch('https://drewbook-backend.fly.dev/profiles/info', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(body),
             credentials: 'include'
@@ -274,10 +286,12 @@ export default function LoadProfile({ id, friends }) {
             bio: bio
         }
 
-        fetch('http://localhost:3000/profiles/bio', {
+        fetch('https://drewbook-backend.fly.dev/profiles/bio', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(body),
             credentials: 'include'

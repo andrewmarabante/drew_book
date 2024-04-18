@@ -10,10 +10,12 @@ export default function Chats(){
     const [user, setUser] = useState(null)
     
     useEffect(()=>{
-        fetch('http://localhost:3000/chats',{
+        fetch('https://drewbook-backend.fly.dev/chats',{
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             credentials: 'include'
         })

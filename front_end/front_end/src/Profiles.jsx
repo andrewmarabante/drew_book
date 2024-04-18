@@ -13,10 +13,12 @@ export default function Profiles(){
 
     useEffect(()=>{
 
-        fetch(`http://localhost:3000/profiles/:${id && id}/friends`, {
+        fetch(`https://drewbook-backend.fly.dev/profiles/:${id && id}/friends`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Headers': '*',
                 },
                 credentials: 'include'
             })

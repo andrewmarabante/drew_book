@@ -46,10 +46,12 @@ export default function CreateChats({friendList}){
             chatName : chatName,
         }
 
-        fetch('http://localhost:3000/chats',{
+        fetch('https://drewbook-backend.fly.dev/chats',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(body),
             credentials: 'include'
@@ -89,10 +91,10 @@ export default function CreateChats({friendList}){
                 </div>
                 {friendList && 
                 <div className={`${showDetails ? 'flex' : 'hidden'} w-full h-full `}>
-                    <div className="border border-gray-300 rounded-lg w-2/3 mt-5 h-5/6 overflow-scroll">
+                    <div className="border border-gray-300 rounded-lg w-2/3 mt-5 h-5/6 overflow-auto">
                         {friendList.map((friend)=>{
                             return(
-                            <div key={v4()} className="border select-none p-2 rounded-lg text-black ml-5 mr-5 m-2 hover:bg-green-100 overflow-scroll" onClick={()=>{addRecipient(friend._id, friend.username)}}>{friend.username}</div>
+                            <div key={v4()} className="border select-none p-2 rounded-lg text-black ml-5 mr-5 m-2 hover:bg-green-100 overflow-auto" onClick={()=>{addRecipient(friend._id, friend.username)}}>{friend.username}</div>
                             )
                         })}
                     </div>

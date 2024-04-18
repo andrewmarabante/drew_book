@@ -28,10 +28,12 @@ export default function GetPosts({posts, userList, toggleReset, isUser}){
 
         
 
-        fetch('http://localhost:3000/likes',{
+        fetch('https://drewbook-backend.fly.dev/likes',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(data),
             credentials: 'include'
@@ -49,10 +51,12 @@ export default function GetPosts({posts, userList, toggleReset, isUser}){
             postId : postId
         }
 
-        fetch('http://localhost:3000/',{
+        fetch('https://drewbook-backend.fly.dev/',{
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Headers': '*',
             },
             body: JSON.stringify(data),
             credentials: 'include'
@@ -75,10 +79,12 @@ export default function GetPosts({posts, userList, toggleReset, isUser}){
                         comment : e.target.value
                     }
 
-                        fetch('http://localhost:3000/comment', {
+                        fetch('https://drewbook-backend.fly.dev/comment', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json', 
+                                'Access-Control-Allow-Origin': '*',
+                                'Access-Control-Allow-Headers': '*',
                               },
                             body: JSON.stringify(body),
                             credentials: 'include'
