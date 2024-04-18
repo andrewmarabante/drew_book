@@ -103,7 +103,7 @@ export default function Login(){
             {!login && <div className="text-xs">Already have an account?</div>}
             {login && <button className="w-40 border p-1 rounded-lg hover:bg-blue-50 mb-6 mt-2" onClick={handleChange}>Sign Up</button>}
             {!login && <button className="w-40 border p-1 rounded-lg hover:bg-blue-50 mb-6 mt-2" onClick={handleChange}>Log In</button>}
-            <form action="http://localhost:3000/login/google" method="GET" className="w-5/6 border-t-2 flex justify-center">
+            <form action="https://drewbook-backend.fly.dev/login/google" method="GET" className="w-5/6 border-t-2 flex justify-center">
                 <button type="submit" className="flex items-center justify-center h-10 bg-blue-100 border border-green-300 rounded-xl pl-4 pr-4 m-2">
                     <GoogleIcon></GoogleIcon>
                     Sign in with google</button>
