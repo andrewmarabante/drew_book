@@ -37,6 +37,9 @@ function newChat(req,res){
     users = req.body.users
     users.push(userId)
 
+    console.log(users)
+    console.log(chat_name)
+
     chatDetails = {
         chat_name : chat_name,
         users : users,
