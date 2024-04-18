@@ -105,7 +105,7 @@ export default function GetChats({chatList, friendList, user, resetChat}){
                         return(
                             <div key={v4()} className="text-center p-4 text-xl border rounded-lg m-2 hover:bg-green-100 flex flex-col justify-center items-center gap-3 w-full " onClick={()=>openChat(chat)}>
                                 <div className='text-3xl border-b-2 text-center w-3/12 pb-2'>{chat.chat_name}</div>
-                                <div className="flex justify-center items-center gap-5 overflow-scroll w-11/12">
+                                <div className="flex justify-center items-center gap-5 overflow-y-hidden overflow-x-auto w-11/12 h-10">
                                     {usersArray.map(user => {
                                         return(
                                             <div key={v4()} className="flex relative border rounded-md items-center">
