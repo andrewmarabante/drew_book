@@ -12,7 +12,7 @@ var profilesRouter = require('./routes/profiles');
 var chatsRouter = require('./routes/chats');
 var loginRouter = require('./routes/login');
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://drew-book-jo6x.vercel.app']; 
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:3000', 'https://drew-book-jo6x-msap07qlj-andrew-marabantes-projects.vercel.app']; 
 const corsOptions = {
   origin: true,
   credentials: true 
