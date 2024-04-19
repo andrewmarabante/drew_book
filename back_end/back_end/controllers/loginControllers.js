@@ -67,12 +67,7 @@ const signOut = (req, res) => {
 }
 
 const logoutUser = (req, res) => {
-    res.cookie('jwt', 'deleted', {
-        expires: new Date(1),
-        path: '/',
-        secure: true,
-        httpOnly: true
-    });
+    res.clearCookie('jwt', { httpOnly: true, path: '/', sameSite: 'None', secure: true });
     res.status(200).json()
 }
 
