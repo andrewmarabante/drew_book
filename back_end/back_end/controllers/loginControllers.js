@@ -67,8 +67,8 @@ const signOut = (req, res) => {
 }
 
 const logoutUser = (req, res) => {
-    res.clearCookie('jwt', {
-        expires: new Date(0),
+    res.cookie('jwt', 'deleted', {
+        expires: new Date(1),
         path: '/',
         secure: true,
         httpOnly: true

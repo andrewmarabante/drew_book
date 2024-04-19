@@ -59,5 +59,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+console.log('here')
+console.log(process.env.clientID)
+console.log(process.env.clientSecret)
 
 module.exports = app;

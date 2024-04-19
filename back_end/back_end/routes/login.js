@@ -8,7 +8,7 @@ router.post('/', loginControllers.loginUser)
 
 router.post('/signup', loginControllers.newUser)
 
-router.get('/logout', auth.authenticateToken, loginControllers.logoutUser)
+router.post('/logout', auth.authenticateToken, loginControllers.logoutUser)
 
 router.get('/google', auth.passport.authenticate('google', {
     scope: ['profile']

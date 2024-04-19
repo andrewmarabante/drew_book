@@ -20,7 +20,7 @@ import * as React from 'react';
     function handleLogout(){
 
       fetch('https://drewbook-backend.fly.dev/login/logout',{
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': '*',
