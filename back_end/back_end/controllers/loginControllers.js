@@ -75,6 +75,8 @@ async function googleLogin(req, res) {
     user = req.user._json
     const hashedGoogleId = await auth.bcrypt.hash(req.user.id, 10)
 
+    console.log('user: ' + user);
+
     User.find({ username: user.name })
         .then(result => {
 
@@ -88,17 +90,16 @@ async function googleLogin(req, res) {
                 const newUser = new User(userData)
                 newUser.save()
                     .then((result) => {
-                        console.log(result)
                         const accessToken = auth.jwt.sign({ userId: result._id }, process.env.SECRET, { expiresIn: '10m' });
-                        res.cookie('jwt', accessToken, { httpOnly: true, path: '/' });
-                        return res.status(200).redirect('http://localhost:5173/')
+                        res.cookie('jwt', accessToken, { httpOnly: true, path: '/', sameSite: 'None', secure: true });
+                        return res.status(200).redirect('https://drew-book-jo6x.vercel.app/')
                     })
 
             } else {
                 console.log('out')
                 const accessToken = auth.jwt.sign({ userId: result[0]._id }, process.env.SECRET, { expiresIn: '10m' });
-                res.cookie('jwt', accessToken, { httpOnly: true, path: '/' });
-                return res.status(200).redirect('http://localhost:5173/')
+                res.cookie('jwt', accessToken, { httpOnly: true, path: '/', sameSite: 'None', secure: true });
+                return res.status(200).redirect('https://drew-book-jo6x.vercel.app/')
 
             }
         })
