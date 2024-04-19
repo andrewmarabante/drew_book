@@ -58,7 +58,7 @@ export default function Login(){
             })
             .catch(err => console.log(err))
         }else{
-            fetch('https://drewbook-backend.fly.dev/login',{
+            fetch('https://drewbook-backend.fly.dev/login/signup',{
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
