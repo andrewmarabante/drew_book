@@ -67,6 +67,9 @@ export default function GetPosts({posts, userList, toggleReset, isUser}){
 
     return(
         <div className="flex flex-col justify-center items-center pt-20 min-h-screen rounded-xl bg-gradient-to-r from-blue-100 to-green-100">
+            
+            {posts.length === 0 && isUser && <div className="bg-white rounded-2xl shadow-lg w-3/4 p-10 text-center">You have No Posts! Make One!</div>}
+            {posts.length === 0 && !isUser && <div className="bg-white rounded-2xl shadow-lg w-3/4 p-10 text-center">No Friend Posts!</div>}
             {posts && posts.map((post) => {
 
 
