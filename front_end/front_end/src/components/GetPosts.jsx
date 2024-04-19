@@ -116,7 +116,7 @@ export default function GetPosts({posts, userList, toggleReset, isUser}){
                         {post.images.length > 0 && <div className="flex justify-start gap-5 p-5 border rounded-xl mb-2 overflow-x-auto h-fit">
                             {post.images.map(url => {
                                 return(
-                                    <img key={v4()} src={url} alt="image"  className={`${showComment ? 'h-10' : 'h-52'} w-auto rounded-lg`}/>
+                                    <img key={v4()} src={url} alt="image"  className={`${showComment === post._id ? 'h-10' : 'h-52'} w-auto rounded-lg`}/>
                                 )
                             })}
                         </div>}
